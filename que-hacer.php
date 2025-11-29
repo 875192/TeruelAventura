@@ -1,0 +1,418 @@
+<?php
+require_once __DIR__ . '/conexion.php';
+$pdo = obtenerConexionPDO();
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qué Hacer en Teruel - Teruel Aventura</title>
+    <meta name="keywords" content="Teruel, actividades, turismo, dinosaurios, jamón, naturaleza">
+    <meta name="description" content="Descubre todas las actividades y experiencias que puedes disfrutar en Teruel">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!-- Responsive -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <!-- Teruel Aventura Custom Styles -->
+    <link rel="stylesheet" type="text/css" href="css/teruel-aventura.css">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header class="seccion-cabecera">
+        <nav class="navbar navbar-expand-lg navbar-custom">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center">
+                    <a href="index.php">
+                        <img src="images/logo-empresa.png" alt="Logo Teruel Aventura" class="imagen-logo">
+                    </a>
+                </div>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse navbar-collapse-custom" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="conoce-teruel.php">CONOCE TERUEL</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="que-hacer.php">QUÉ HACER</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="organiza-viaje.php">ORGANIZA TU VIAJE</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- User Profile Button -->
+                <a class="boton-perfil-usuario d-none d-lg-flex" href="perfil.php">
+                    <i class="fa fa-user"></i>MI PERFIL
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="seccion-hero hero-que-hacer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h1 class="titulo-hero">Qué Hacer en Teruel</h1>
+                    <p class="subtitulo-hero">Experiencias únicas que harán de tu visita un recuerdo inolvidable</p>
+                    <a href="#actividades" class="btn-base btn-rectangular btn-borde btn-hover-invertir btn-blanco">Descubre las Actividades</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Introducción -->
+    <section class="content-section" id="actividades">
+        <div class="container">
+            <div class="intro-text">
+                <h2 class="section-title">Teruel: Un Destino Lleno de Experiencias</h2>
+                <p>Teruel ofrece una <span class="highlight">combinación única de cultura, naturaleza y gastronomía</span> que cautiva a todos sus visitantes. Desde explorar el arte mudéjar hasta degustar el mejor jamón del mundo, pasando por caminatas en paisajes naturales espectaculares.</p>
+                <p>¿Listo para la aventura? Aquí te presentamos las experiencias imprescindibles que no puedes perderte en Teruel.</p>
+            </div>
+
+            <!-- Actividades Culturales -->
+            <div class="section-title mt-5">
+                <h2><i class="fa fa-university"></i> Actividades Culturales</h2>
+            </div>
+            
+            <div class="row mb-5">
+                <div class="col-md-6 mb-4">
+                    <div class="activity-card activity-card--bg-mudejar">
+                        <div class="activity-icon">
+                            <i class="fa fa-building"></i>
+                        </div>
+                        <h3>Ruta del Arte Mudéjar</h3>
+                        <p>Recorre las cuatro torres mudéjares declaradas Patrimonio de la Humanidad: las torres de San Pedro, San Martín, El Salvador y la Catedral. Un viaje único por el arte medieval más singular de España.</p>
+                        <ul class="activity-details">
+                            <li><strong>Duración:</strong> 3-4 horas</li>
+                            <li><strong>Dificultad:</strong> Fácil</li>
+                            <li><strong>Época recomendada:</strong> Todo el año</li>
+                        </ul>
+                        <a href="organiza-viaje.php" class="btn-base btn-rectangular btn-borde btn-hover-invertir btn-azul">Reservar Tour</a>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="activity-card activity-card--bg-amantes">
+                        <div class="activity-icon">
+                            <i class="fa fa-heart"></i>
+                        </div>
+                        <h3>Los Amantes de Teruel</h3>
+                        <p>Descubre la leyenda más romántica de España visitando el Mausoleo de los Amantes y su museo. Una historia de amor que ha trascendido los siglos.</p>
+                        <ul class="activity-details">
+                            <li><strong>Duración:</strong> 1-2 horas</li>
+                            <li><strong>Dificultad:</strong> Fácil</li>
+                            <li><strong>Incluye:</strong> Visita guiada al mausoleo</li>
+                        </ul>
+                        <a href="organiza-viaje.php" class="btn-base btn-rectangular btn-borde btn-hover-invertir btn-azul">Reservar Visita</a>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="activity-card activity-card--bg-museo">
+                        <div class="activity-icon">
+                            <i class="fa fa-image"></i>
+                        </div>
+                        <h3>Museos de Teruel</h3>
+                        <p>Visita el Museo Provincial de Teruel con su extraordinaria colección arqueológica, y el Museo de Arte Sacro en la Catedral.</p>
+                        <ul class="activity-details">
+                            <li><strong>Duración:</strong> 2-3 horas</li>
+                            <li><strong>Dificultad:</strong> Fácil</li>
+                            <li><strong>Horario:</strong> Martes a domingo</li>
+                        </ul>
+                        <a href="organiza-viaje.php" class="btn-base btn-rectangular btn-borde btn-hover-invertir btn-azul">Más Información</a>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="activity-card activity-card--bg-dinopolis">
+                        <div class="activity-icon">
+                            <i class="fa fa-certificate"></i>
+                        </div>
+                        <h3>Dinópolis</h3>
+                        <p>El parque paleontológico más importante de Europa. Viaja a la era de los dinosaurios y descubre los fósiles más impresionantes encontrados en Teruel.</p>
+                        <ul class="activity-details">
+                            <li><strong>Duración:</strong> Día completo</li>
+                            <li><strong>Dificultad:</strong> Fácil</li>
+                            <li><strong>Ideal para:</strong> Familias con niños</li>
+                        </ul>
+                        <a href="organiza-viaje.php" class="btn-base btn-rectangular btn-borde btn-hover-invertir btn-azul">Comprar Entradas</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actividades en la Naturaleza -->
+            <div class="section-title mt-5">
+                <h2><i class="fa fa-tree"></i> Naturaleza y Aventura</h2>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-md-6 mb-4">
+                    <div class="activity-card activity-card--bg-albarracin">
+                        <div class="activity-icon">
+                            <i class="fa fa-map-signs"></i>
+                        </div>
+                        <h3>Sierra de Albarracín</h3>
+                        <p>Senderismo por uno de los Pueblos Más Bonitos de España. Rutas de diferentes niveles entre pinares y formaciones rocosas espectaculares.</p>
+                        <ul class="activity-details">
+                            <li><strong>Duración:</strong> Medio día / Día completo</li>
+                            <li><strong>Dificultad:</strong> Media</li>
+                            <li><strong>Mejor época:</strong> Primavera y otoño</li>
+                        </ul>
+                        <a href="organiza-viaje.php" class="btn-base btn-rectangular btn-borde btn-hover-invertir btn-azul">Reservar Ruta</a>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="activity-card activity-card--bg-rodeno">
+                        <div class="activity-icon">
+                            <i class="fa fa-leaf"></i>
+                        </div>
+                        <h3>Los Pinares de Rodeno</h3>
+                        <p>Explora el Paisaje Protegido de los Pinares de Rodeno con sus impresionantes formaciones de arenisca roja y pinturas rupestres prehistóricas.</p>
+                        <ul class="activity-details">
+                            <li><strong>Duración:</strong> 3-5 horas</li>
+                            <li><strong>Dificultad:</strong> Fácil-Media</li>
+                            <li><strong>Patrimonio:</strong> Arte rupestre UNESCO</li>
+                        </ul>
+                        <a href="organiza-viaje.php" class="btn-base btn-rectangular btn-borde btn-hover-invertir btn-azul">Planificar Visita</a>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="activity-card activity-card--bg-pitarque">
+                        <div class="activity-icon">
+                            <i class="fa fa-tint"></i>
+                        </div>
+                        <h3>Nacimiento del Río Pitarque</h3>
+                        <p>Una de las surgencias kársticas más espectaculares de España. Ruta circular por un paisaje de ensueño entre montañas y cañones.</p>
+                        <ul class="activity-details">
+                            <li><strong>Duración:</strong> 4-5 horas</li>
+                            <li><strong>Dificultad:</strong> Media</li>
+                            <li><strong>Distancia:</strong> Aprox. 12 km</li>
+                        </ul>
+                        <a href="organiza-viaje.php" class="btn-base btn-rectangular btn-borde btn-hover-invertir btn-azul">Ver Ruta</a>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="activity-card activity-card--bg-aves">
+                        <div class="activity-icon">
+                            <i class="fa fa-binoculars"></i>
+                        </div>
+                        <h3>Observación de Aves</h3>
+                        <p>Teruel es un paraíso para la ornitología. Observa buitres, águilas reales y otras especies en su hábitat natural en el Maestrazgo.</p>
+                        <ul class="activity-details">
+                            <li><strong>Duración:</strong> Medio día</li>
+                            <li><strong>Dificultad:</strong> Fácil</li>
+                            <li><strong>Incluye:</strong> Guía especializado</li>
+                        </ul>
+                        <a href="organiza-viaje.php" class="btn-base btn-rectangular btn-borde btn-hover-invertir btn-azul">Reservar</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gastronomía -->
+            <div class="section-title mt-5">
+                <h2><i class="fa fa-cutlery"></i> Experiencias Gastronómicas</h2>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-md-6 mb-4">
+                    <div class="activity-card activity-card--bg-jamon">
+                        <div class="activity-icon">
+                            <i class="fa fa-glass"></i>
+                        </div>
+                        <h3>Ruta del Jamón de Teruel</h3>
+                        <p>Visita secaderos tradicionales y descubre el proceso de elaboración del Jamón de Teruel DOP, uno de los mejores del mundo. Incluye degustación.</p>
+                        <ul class="activity-details">
+                            <li><strong>Duración:</strong> 3-4 horas</li>
+                            <li><strong>Incluye:</strong> Degustación y productos</li>
+                            <li><strong>Ideal para:</strong> Amantes de la gastronomía</li>
+                        </ul>
+                        <a href="organiza-viaje.php" class="btn-base btn-rectangular btn-borde btn-hover-invertir btn-azul">Reservar Tour</a>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="activity-card activity-card--bg-trufa">
+                        <div class="activity-icon">
+                            <i class="fa fa-spoon"></i>
+                        </div>
+                        <h3>Degustación de Trufa Negra</h3>
+                        <p>Teruel es uno de los principales productores de trufa negra de España. Participa en búsqueda de trufas y degusta platos elaborados con este manjar.</p>
+                        <ul class="activity-details">
+                            <li><strong>Duración:</strong> Medio día</li>
+                            <li><strong>Temporada:</strong> Noviembre a marzo</li>
+                            <li><strong>Incluye:</strong> Búsqueda y menú</li>
+                        </ul>
+                        <a href="organiza-viaje.php" class="btn-base btn-rectangular btn-borde btn-hover-invertir btn-azul">Más Información</a>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="activity-card activity-card--bg-cocina">
+                        <div class="activity-icon">
+                            <i class="fa fa-coffee"></i>
+                        </div>
+                        <h3>Cocina Tradicional Turolense</h3>
+                        <p>Aprende a cocinar platos típicos como el ternasco, las migas o la sopa turolense en un taller de cocina tradicional.</p>
+                        <ul class="activity-details">
+                            <li><strong>Duración:</strong> 3 horas</li>
+                            <li><strong>Nivel:</strong> Principiantes</li>
+                            <li><strong>Incluye:</strong> Ingredientes y comida</li>
+                        </ul>
+                        <a href="organiza-viaje.php" class="btn-base btn-rectangular btn-borde btn-hover-invertir btn-azul">Inscribirse</a>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="activity-card activity-card--bg-bodegas">
+                        <div class="activity-icon">
+                            <i class="fa fa-beer"></i>
+                        </div>
+                        <h3>Visita a Bodegas Locales</h3>
+                        <p>Descubre los vinos de la Sierra de Albarracín y otras zonas vinícolas de Teruel. Catas guiadas en bodegas tradicionales y modernas.</p>
+                        <ul class="activity-details">
+                            <li><strong>Duración:</strong> 2-3 horas</li>
+                            <li><strong>Incluye:</strong> Visita y cata</li>
+                            <li><strong>Edad mínima:</strong> 18 años</li>
+                        </ul>
+                        <a href="organiza-viaje.php" class="btn-base btn-rectangular btn-borde btn-hover-invertir btn-azul">Reservar Cata</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Festividades y Eventos -->
+            <div class="section-title mt-5">
+                <h2><i class="fa fa-calendar"></i> Festividades y Eventos</h2>
+            </div>
+
+            <div class="highlight-section mb-5">
+                <h3>La Vaquilla del Ángel</h3>
+                <p><strong>Fecha:</strong> Segunda semana de julio</p>
+                <p>Las fiestas patronales de Teruel son una celebración única que combina tradición, música y diversión. Los actos más destacados incluyen:</p>
+                <ul>
+                    <li><strong>El Torico:</strong> Baile tradicional alrededor de la escultura del toro en la Plaza del Torico</li>
+                    <li><strong>Conciertos y actuaciones</strong> en diferentes espacios de la ciudad</li>
+                    <li><strong>Festejos taurinos</strong> tradicionales</li>
+                    <li><strong>Verbenas populares</strong> con música en vivo</li>
+                </ul>
+            </div>
+
+            <div class="highlight-section mb-5">
+                <h3>Bodas de Isabel de Segura</h3>
+                <p><strong>Fecha:</strong> Fin de semana más próximo al 14 de febrero</p>
+                <p>Teruel se convierte en una ciudad medieval durante esta recreación histórica que conmemora la leyenda de Los Amantes de Teruel. La ciudad se llena de música, mercados medievales, torneos y representaciones teatrales.</p>
+            </div>
+
+            <div class="highlight-section mb-5">
+                <h3>Feria del Jamón de Teruel</h3>
+                <p><strong>Fecha:</strong> Septiembre</p>
+                <p>Una cita imprescindible para los amantes de la gastronomía. Degustaciones, concursos, talleres y actividades centradas en el producto estrella de Teruel.</p>
+            </div>
+
+            <!-- Consejos Prácticos -->
+            <div class="section-title mt-5">
+                <h2><i class="fa fa-info-circle"></i> Consejos Prácticos</h2>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-md-4 mb-4">
+                    <div class="tip-card">
+                        <h4><i class="fa fa-clock-o"></i> Mejor Época</h4>
+                        <p>La primavera (abril-junio) y el otoño (septiembre-octubre) son ideales por el clima suave y los paisajes coloridos. El verano puede ser caluroso pero hay muchas fiestas.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="tip-card">
+                        <h4><i class="fa fa-shopping-bag"></i> Qué Llevarte</h4>
+                        <p>No te vayas sin jamón de Teruel DOP, trufa negra, aceite de oliva de la región, miel de la Sierra de Albarracín y vino local.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="tip-card">
+                        <h4><i class="fa fa-car"></i> Cómo Moverte</h4>
+                        <p>Un coche es ideal para explorar la provincia. La ciudad de Teruel se recorre perfectamente a pie. Hay rutas de autobús entre los pueblos principales.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+            <!-- CTA Section -->
+    <section class="seccion-cta-arriba">
+         <div class="container">
+            <h3 class="titulo-cta">¿Listo para tu aventura en Teruel?</h3>
+            <p class="texto-cta">Contacta con nosotros y diseñaremos el viaje perfecto para ti</p>
+            <a href="#contacto" class="btn-base btn-rectangular btn-borde btn-hover-invertir btn-blanco">Contactar Ahora</a>
+         </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="seccion-cta-abajo" id="contacto">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="info-footer">
+                        <h5>Teruel Aventura</h5>
+                        <p>Tu agencia de viajes especializada en descubrir todos los encantos de la provincia de Teruel.</p>
+                        <div class="enlaces-sociales">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-lg-4 col-md-6">
+                    <div class="info-footer">
+                        <h5>Contacto</h5>
+                        <p><i class="fa fa-map-marker"></i> C/ Atarazana, 2, 44003 Teruel</p>
+                        <p><i class="fa fa-phone"></i> +34 000 000 000</p>
+                        <p><i class="fa fa-envelope"></i> info@teruelaventura.com</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="info-footer">
+                        <h5>Enlaces Útiles</h5>
+                        <ul>
+                            <li><a href="#">Sobre Nosotros</a></li>
+                            <li><a href="#">Política de Privacidad</a></li>
+                            <li><a href="#">Términos y Condiciones</a></li>
+                            <li><a href="#">Blog de Viajes</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr class="linea-footer">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p>&copy; 2025 Teruel Aventura. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/teruel-aventura.js"></script>
+</body>
+</html>
