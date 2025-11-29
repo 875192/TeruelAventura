@@ -663,7 +663,7 @@ function cerrarSesion() {
         localStorage.removeItem('usuarioLogueado');
         sincronizarConServidor('logout');
         alert('Sesión cerrada correctamente.');
-        window.location.href = 'perfil.php';
+        window.location.href = 'perfil.html';
     }
 }
 
@@ -699,7 +699,7 @@ function eliminarCuenta() {
     localStorage.removeItem('usuarioLogueado');
     
     alert('Tu cuenta ha sido eliminada exitosamente. Lamentamos verte partir.');
-    window.location.href = 'index.php';
+    window.location.href = 'index.html';
 }
 
 // ============================================
@@ -838,7 +838,7 @@ function enviarValoracion(viajeId) {
     const usuario = obtenerUsuarioActual();
     if (!usuario) {
         alert('Debes iniciar sesión para escribir una valoración.');
-        window.location.href = 'perfil.php';
+        window.location.href = 'perfil.html';
         return;
     }
     
@@ -1039,7 +1039,7 @@ function inicializarSmoothScroll() {
     });
 }
 
-// Función específica para scroll a servicios (index.php)
+// Función específica para scroll a servicios (index.html)
 function scrollToServices() {
     const servicesSection = document.getElementById('servicios');
     if (servicesSection) {
@@ -1055,7 +1055,7 @@ function scrollToServices() {
 // ============================================
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Verificar si estamos en perfil.php
+    // Verificar si estamos en perfil.html
     if (document.getElementById('vista-perfil-usuario')) {
         verificarSesionYMostrarVista();
         
@@ -1171,7 +1171,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Mostrar mensaje de éxito y redirigir
                 alert('¡Cuenta creada exitosamente! Bienvenido, ' + nombre + '.');
-                window.location.href = 'perfil.php';
+                window.location.href = 'perfil.html';
             });
         }
         
@@ -1218,12 +1218,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Mostrar mensaje de éxito y redirigir
                 alert('¡Sesión iniciada correctamente! Bienvenido de nuevo, ' + usuarioRegistrado.nombre + '.');
-                window.location.href = 'perfil.php';
+                window.location.href = 'perfil.html';
             });
         }
     }
-    
-    // Verificar si estamos en organiza-viaje.php
+
+    // Verificar si estamos en organiza-viaje.html
     if (document.querySelector('.viaje-item')) {
         verificarEstadoLogin();
         inicializarSelectoresEstrellas();

@@ -2,439 +2,179 @@
 session_start();
 require_once __DIR__ . '/conexion.php';
 
-$pdo = obtenerConexionPDO();
-$mensaje = '';
-$tipoMensaje = 'info';
-$usuarioSesion = $_SESSION['usuario'] ?? null;
-
-$isJsonRequest = isset($_SERVER['CONTENT_TYPE']) && stripos($_SERVER['CONTENT_TYPE'], 'application/json') === 0;
-$jsonInput = $isJsonRequest ? json_decode(file_get_contents('php://input'), true) : [];
-$accion = $jsonInput['accion'] ?? ($_POST['accion'] ?? '');
-$isAjax = $isJsonRequest || (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
-
 /**
- * Envía una respuesta JSON y detiene la ejecución cuando la petición
- * proviene de fetch/AJAX para no incluir el HTML completo.
+ * Devuelve una respuesta JSON y detiene la ejecución.
  */
-function responderJson(array $payload)
+function responderJson(array $payload, int $status = 200): void
 {
     header('Content-Type: application/json');
+    http_response_code($status);
     echo json_encode($payload);
     exit;
 }
 
-if ($accion && !$pdo) {
-    $mensaje = 'No se pudo conectar con la base de datos. Revisa la configuración en conexion.php.';
+// Si la petición es de navegador tradicional, redirige a la vista HTML del perfil.
+$isJsonRequest = isset($_SERVER['CONTENT_TYPE']) && stripos($_SERVER['CONTENT_TYPE'], 'application/json') === 0;
+$isAjax = $isJsonRequest || (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && !$isAjax) {
+    header('Location: perfil.html');
+    exit;
+}
+
+$input = $isJsonRequest ? json_decode(file_get_contents('php://input'), true) : null;
+$datos = is_array($input) ? $input : $_POST;
+$accion = $datos['accion'] ?? ($_GET['accion'] ?? '');
+
+$pdo = obtenerConexionPDO();
+if (!$pdo) {
+    responderJson([
+        'ok' => false,
+        'mensaje' => 'No se pudo conectar con la base de datos. Revisa la configuración en conexion.php.',
+    ], 500);
+}
+
+$usuarioSesion = $_SESSION['usuario'] ?? null;
+
+// Permitir consultar el usuario actual sin acciones adicionales.
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && $accion === '') {
+    responderJson([
+        'ok' => true,
+        'usuario' => $usuarioSesion,
+    ]);
+}
+
+$mensaje = 'Operación no reconocida.';
+$tipoMensaje = 'danger';
+
+try {
+    switch ($accion) {
+        case 'registro':
+            $nombre = trim($datos['nombre'] ?? '');
+            $email = trim($datos['email'] ?? '');
+            $password = $datos['password'] ?? '';
+
+            if ($nombre === '' || $email === '' || $password === '') {
+                $mensaje = 'Todos los campos son obligatorios para registrar una cuenta.';
+                break;
+            }
+
+            $consulta = $pdo->prepare('SELECT id FROM usuarios WHERE email = :email');
+            $consulta->execute(['email' => $email]);
+            if ($consulta->fetch()) {
+                $mensaje = 'Ya existe una cuenta con este correo electrónico.';
+                $tipoMensaje = 'warning';
+                break;
+            }
+
+            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+            $insert = $pdo->prepare('INSERT INTO usuarios (nombre, email, password_hash, fecha_registro) VALUES (:nombre, :email, :password_hash, NOW())');
+            $insert->execute([
+                'nombre' => $nombre,
+                'email' => $email,
+                'password_hash' => $passwordHash,
+            ]);
+
+            $_SESSION['usuario'] = [
+                'id' => (int)$pdo->lastInsertId(),
+                'nombre' => $nombre,
+                'email' => $email,
+            ];
+            $usuarioSesion = $_SESSION['usuario'];
+            $mensaje = 'Cuenta creada exitosamente.';
+            $tipoMensaje = 'success';
+            break;
+
+        case 'login':
+            $email = trim($datos['email'] ?? '');
+            $password = $datos['password'] ?? '';
+
+            $consulta = $pdo->prepare('SELECT id, nombre, email, password_hash, fecha_registro FROM usuarios WHERE email = :email');
+            $consulta->execute(['email' => $email]);
+            $usuario = $consulta->fetch();
+
+            if (!$usuario || !password_verify($password, $usuario['password_hash'])) {
+                $mensaje = 'Credenciales incorrectas. Por favor, verifica tu usuario y contraseña.';
+                break;
+            }
+
+            $_SESSION['usuario'] = [
+                'id' => (int)$usuario['id'],
+                'nombre' => $usuario['nombre'],
+                'email' => $usuario['email'],
+                'fecha_registro' => $usuario['fecha_registro'] ?? null,
+            ];
+            $usuarioSesion = $_SESSION['usuario'];
+            $mensaje = 'Has iniciado sesión correctamente.';
+            $tipoMensaje = 'success';
+            break;
+
+        case 'editar':
+            if (!$usuarioSesion) {
+                $mensaje = 'Debes iniciar sesión para editar tu perfil.';
+                $tipoMensaje = 'warning';
+                break;
+            }
+
+            $nuevoNombre = trim($datos['nombre'] ?? '');
+            $nuevoEmail = trim($datos['email'] ?? '');
+
+            if ($nuevoNombre === '' || $nuevoEmail === '') {
+                $mensaje = 'El nombre y el correo electrónico son obligatorios.';
+                break;
+            }
+
+            $consulta = $pdo->prepare('SELECT id FROM usuarios WHERE email = :email AND id != :id');
+            $consulta->execute(['email' => $nuevoEmail, 'id' => $usuarioSesion['id']]);
+            if ($consulta->fetch()) {
+                $mensaje = 'El correo electrónico ya está en uso por otra cuenta.';
+                $tipoMensaje = 'warning';
+                break;
+            }
+
+            $update = $pdo->prepare('UPDATE usuarios SET nombre = :nombre, email = :email WHERE id = :id');
+            $update->execute([
+                'nombre' => $nuevoNombre,
+                'email' => $nuevoEmail,
+                'id' => $usuarioSesion['id'],
+            ]);
+
+            $_SESSION['usuario']['nombre'] = $nuevoNombre;
+            $_SESSION['usuario']['email'] = $nuevoEmail;
+            $usuarioSesion = $_SESSION['usuario'];
+            $mensaje = 'Perfil actualizado correctamente.';
+            $tipoMensaje = 'success';
+            break;
+
+        case 'eliminar':
+            if (!$usuarioSesion) {
+                $mensaje = 'No hay sesión activa que eliminar.';
+                $tipoMensaje = 'warning';
+                break;
+            }
+
+            $delete = $pdo->prepare('DELETE FROM usuarios WHERE id = :id');
+            $delete->execute(['id' => $usuarioSesion['id']]);
+            session_destroy();
+            $usuarioSesion = null;
+            $mensaje = 'Cuenta eliminada correctamente.';
+            $tipoMensaje = 'success';
+            break;
+
+        case 'logout':
+            session_destroy();
+            $usuarioSesion = null;
+            $mensaje = 'Sesión cerrada correctamente.';
+            $tipoMensaje = 'info';
+            break;
+    }
+} catch (PDOException $e) {
+    error_log('Error en operación de usuario: ' . $e->getMessage());
+    $mensaje = 'Ocurrió un problema al procesar tu solicitud. Inténtalo de nuevo más tarde.';
     $tipoMensaje = 'danger';
-    if ($isAjax) {
-        responderJson(['ok' => false, 'mensaje' => $mensaje]);
-    }
 }
 
-if ($accion && $pdo) {
-    try {
-        switch ($accion) {
-            case 'registro':
-                $nombre = trim($jsonInput['nombre'] ?? ($_POST['nombre'] ?? ''));
-                $email = trim($jsonInput['email'] ?? ($_POST['email'] ?? ''));
-                $password = $jsonInput['password'] ?? ($_POST['password'] ?? '');
-
-                if ($nombre === '' || $email === '' || $password === '') {
-                    $mensaje = 'Todos los campos son obligatorios para registrar una cuenta.';
-                    $tipoMensaje = 'danger';
-                    break;
-                }
-
-                $consulta = $pdo->prepare('SELECT id FROM usuarios WHERE email = :email');
-                $consulta->execute(['email' => $email]);
-                if ($consulta->fetch()) {
-                    $mensaje = 'Ya existe una cuenta con este correo electrónico.';
-                    $tipoMensaje = 'warning';
-                    break;
-                }
-
-                // Se asume una tabla "usuarios" con columnas: id (PK), nombre, email, password_hash, fecha_registro (timestamp)
-                $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-                $insert = $pdo->prepare('INSERT INTO usuarios (nombre, email, password_hash, fecha_registro) VALUES (:nombre, :email, :password_hash, NOW())');
-                $insert->execute([
-                    'nombre' => $nombre,
-                    'email' => $email,
-                    'password_hash' => $passwordHash,
-                ]);
-
-                $_SESSION['usuario'] = [
-                    'id' => (int)$pdo->lastInsertId(),
-                    'nombre' => $nombre,
-                    'email' => $email,
-                ];
-                $usuarioSesion = $_SESSION['usuario'];
-                $mensaje = 'Cuenta creada exitosamente. Bienvenido/a, ' . htmlspecialchars($nombre, ENT_QUOTES, 'UTF-8') . '.';
-                $tipoMensaje = 'success';
-                break;
-
-            case 'login':
-                $email = trim($jsonInput['email'] ?? ($_POST['email'] ?? ''));
-                $password = $jsonInput['password'] ?? ($_POST['password'] ?? '');
-
-                $consulta = $pdo->prepare('SELECT id, nombre, email, password_hash, fecha_registro FROM usuarios WHERE email = :email');
-                $consulta->execute(['email' => $email]);
-                $usuario = $consulta->fetch();
-
-                if (!$usuario || !password_verify($password, $usuario['password_hash'])) {
-                    $mensaje = 'Credenciales incorrectas. Por favor, verifica tu usuario y contraseña.';
-                    $tipoMensaje = 'danger';
-                    break;
-                }
-
-                $_SESSION['usuario'] = [
-                    'id' => (int)$usuario['id'],
-                    'nombre' => $usuario['nombre'],
-                    'email' => $usuario['email'],
-                    'fecha_registro' => $usuario['fecha_registro'] ?? null,
-                ];
-                $usuarioSesion = $_SESSION['usuario'];
-                $mensaje = 'Has iniciado sesión correctamente.';
-                $tipoMensaje = 'success';
-                break;
-
-            case 'editar':
-                if (!$usuarioSesion) {
-                    $mensaje = 'Debes iniciar sesión para editar tu perfil.';
-                    $tipoMensaje = 'warning';
-                    break;
-                }
-
-                $nuevoNombre = trim($jsonInput['nombre'] ?? ($_POST['nombre'] ?? ''));
-                $nuevoEmail = trim($jsonInput['email'] ?? ($_POST['email'] ?? ''));
-
-                if ($nuevoNombre === '' || $nuevoEmail === '') {
-                    $mensaje = 'El nombre y el correo electrónico son obligatorios.';
-                    $tipoMensaje = 'danger';
-                    break;
-                }
-
-                $consulta = $pdo->prepare('SELECT id FROM usuarios WHERE email = :email AND id != :id');
-                $consulta->execute(['email' => $nuevoEmail, 'id' => $usuarioSesion['id']]);
-                if ($consulta->fetch()) {
-                    $mensaje = 'El correo electrónico ya está en uso por otra cuenta.';
-                    $tipoMensaje = 'warning';
-                    break;
-                }
-
-                $update = $pdo->prepare('UPDATE usuarios SET nombre = :nombre, email = :email WHERE id = :id');
-                $update->execute([
-                    'nombre' => $nuevoNombre,
-                    'email' => $nuevoEmail,
-                    'id' => $usuarioSesion['id'],
-                ]);
-
-                $_SESSION['usuario']['nombre'] = $nuevoNombre;
-                $_SESSION['usuario']['email'] = $nuevoEmail;
-                $usuarioSesion = $_SESSION['usuario'];
-                $mensaje = 'Perfil actualizado correctamente.';
-                $tipoMensaje = 'success';
-                break;
-
-            case 'eliminar':
-                if (!$usuarioSesion) {
-                    $mensaje = 'No hay sesión activa que eliminar.';
-                    $tipoMensaje = 'warning';
-                    break;
-                }
-
-                $delete = $pdo->prepare('DELETE FROM usuarios WHERE id = :id');
-                $delete->execute(['id' => $usuarioSesion['id']]);
-                session_destroy();
-                $usuarioSesion = null;
-                $mensaje = 'Cuenta eliminada correctamente.';
-                $tipoMensaje = 'success';
-                break;
-
-            case 'logout':
-                session_destroy();
-                $usuarioSesion = null;
-                $mensaje = 'Sesión cerrada correctamente.';
-                $tipoMensaje = 'info';
-                break;
-        }
-    } catch (PDOException $e) {
-        error_log('Error en operación de usuario: ' . $e->getMessage());
-        $mensaje = 'Ocurrió un problema al procesar tu solicitud. Inténtalo de nuevo más tarde.';
-        $tipoMensaje = 'danger';
-    }
-
-    if ($isAjax) {
-        responderJson([
-            'ok' => $tipoMensaje === 'success',
-            'mensaje' => $mensaje,
-            'usuario' => $usuarioSesion,
-        ]);
-    }
-}
-?>
-<!DOCTYPE html>
-<html lang="es">
-   <head>
-      <!-- basic -->
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <!-- mobile metas -->
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-      <!-- site metas -->
-      <title>Mi Perfil - Teruel Aventura</title>
-      <meta name="keywords" content="Teruel, turismo, viajes, agencia, perfil, usuario">
-      <meta name="description" content="Accede a tu cuenta o regístrate en Teruel Aventura">
-      <meta name="author" content="Teruel Aventura">
-      <!-- bootstrap css -->
-      <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-      <!-- style css -->
-      <link rel="stylesheet" type="text/css" href="css/style.css">
-      <!-- Responsive-->
-      <link rel="stylesheet" href="css/responsive.css">
-      <!-- fevicon -->
-      <link rel="icon" href="images/fevicon.png" type="image/gif" />
-      <!-- Scrollbar Custom CSS -->
-      <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
-      <!-- Tweaks for older IEs-->
-      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-      <!-- owl stylesheets --> 
-      <link rel="stylesheet" href="css/owl.carousel.min.css">
-      <link rel="stylesheet" href="css/owl.theme.default.min.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
-      <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-      <!-- Teruel Aventura Custom Styles -->
-      <link rel="stylesheet" type="text/css" href="css/teruel-aventura.css">
-   </head>
-   <body class="body-perfil">
-      <!-- Header Section -->
-      <header class="seccion-cabecera">
-         <nav class="navbar navbar-expand-lg navbar-custom">
-            <div class="container-fluid px-4">
-               <div class="d-flex align-items-center">
-                  <a href="index.php">
-                     <img src="images/logo-empresa.png" alt="Logo Teruel Aventura" class="imagen-logo">
-                  </a>
-               </div>
-               
-               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                  <span class="navbar-toggler-icon"></span>
-               </button>
-               
-               <div class="collapse navbar-collapse navbar-collapse-custom" id="navbarNav">
-                  <ul class="navbar-nav">
-                     <li class="nav-item">
-                        <a class="nav-link" href="conoce-teruel.php">Conoce Teruel</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="que-hacer.php">Qué Hacer</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="organiza-viaje.php">Organiza tu Viaje</a>
-                     </li>
-                  </ul>
-               </div>
-            </div>
-         </nav>
-   </header>
-
-      <?php if ($mensaje): ?>
-      <div class="container mt-4">
-         <div class="alert alert-<?php echo htmlspecialchars($tipoMensaje); ?> alert-dismissible fade show" role="alert">
-            <?php echo htmlspecialchars($mensaje); ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-         </div>
-      </div>
-      <?php endif; ?>
-
-      <!-- Sección de Perfil -->
-      <section class="seccion-perfil">
-         <div class="container">
-            <!-- Vista de Perfil de Usuario (cuando está logueado) -->
-            <div id="vista-perfil-usuario" class="contenedor-perfil-usuario oculto">
-               <div class="cabecera-perfil">
-                  <div class="info-usuario-principal">
-                     <div class="avatar-usuario">
-                        <i class="fa fa-user-circle"></i>
-                     </div>
-                     <div class="datos-usuario">
-                        <h2 id="perfil-nombre">Usuario</h2>
-                        <p id="perfil-email">correo@ejemplo.com</p>
-                        <p class="fecha-registro">Miembro desde <span id="perfil-fecha">2025</span></p>
-                     </div>
-                  </div>
-                  <div class="acciones-perfil">
-                     <button class="btn-perfil btn-editar" onclick="mostrarEditarPerfil()">
-                        <i class="fa fa-edit"></i> Editar Datos
-                     </button>
-                     <button class="btn-perfil btn-cerrar-sesion" onclick="cerrarSesion()">
-                        <i class="fa fa-sign-out"></i> Cerrar Sesión
-                     </button>
-                     <button class="btn-perfil btn-eliminar" onclick="eliminarCuenta()">
-                        <i class="fa fa-trash"></i> Dar de Baja Cuenta
-                     </button>
-                  </div>
-               </div>
-
-               <!-- Estadísticas del Usuario -->
-               <div class="estadisticas-usuario">
-                  <div class="stat-card">
-                     <i class="fa fa-comment"></i>
-                     <h3 id="total-valoraciones">0</h3>
-                     <p>Valoraciones Realizadas</p>
-                  </div>
-                  <div class="stat-card">
-                     <i class="fa fa-star"></i>
-                     <h3 id="promedio-estrellas">0.0</h3>
-                     <p>Promedio de Estrellas</p>
-                  </div>
-               </div>
-
-               <!-- Filtro de Actividades por Fecha -->
-               <div class="filtro-actividades">
-                  <h3><i class="fa fa-filter"></i> Filtrar Actividades</h3>
-                  <div class="grupo-filtros">
-                     <div class="input-fecha">
-                        <label for="fecha-desde">Desde:</label>
-                        <input type="date" id="fecha-desde" class="input-filtro">
-                     </div>
-                     <div class="input-fecha">
-                        <label for="fecha-hasta">Hasta:</label>
-                        <input type="date" id="fecha-hasta" class="input-filtro">
-                     </div>
-                     <button class="btn-filtrar" onclick="aplicarFiltroFechas()">
-                        <i class="fa fa-search"></i> Filtrar
-                     </button>
-                     <button class="btn-limpiar" onclick="limpiarFiltros()">
-                        <i class="fa fa-times"></i> Limpiar
-                     </button>
-                  </div>
-               </div>
-
-               <!-- Lista de Valoraciones del Usuario -->
-               <div class="mis-valoraciones">
-                  <h3><i class="fa fa-list"></i> Mis Valoraciones</h3>
-                  <div id="lista-mis-valoraciones">
-                     <!-- Las valoraciones se cargarán dinámicamente aquí -->
-                  </div>
-               </div>
-            </div>
-
-            <!-- Modal para Editar Datos de Usuario -->
-            <div id="modal-editar-perfil" class="modal-overlay oculto">
-               <div class="modal-contenido">
-                  <div class="modal-header">
-                     <h3>Editar Datos de Perfil</h3>
-                     <button class="btn-cerrar-modal" onclick="cerrarModalEditar()">
-                        <i class="fa fa-times"></i>
-                     </button>
-                  </div>
-                  <form id="form-editar-perfil" method="post" action="perfil.php">
-                     <input type="hidden" name="accion" value="editar">
-                     <div class="grupo-input">
-                        <label for="editar-nombre">Nombre Completo</label>
-                        <input type="text" id="editar-nombre" name="nombre" class="input-auth" value="<?php echo htmlspecialchars($usuarioSesion['nombre'] ?? ''); ?>" required>
-                     </div>
-                     <div class="grupo-input">
-                        <label for="editar-email">Correo Electrónico</label>
-                        <input type="email" id="editar-email" name="email" class="input-auth" value="<?php echo htmlspecialchars($usuarioSesion['email'] ?? ''); ?>" required>
-                     </div>
-                     <div class="modal-acciones">
-                        <button type="submit" class="btn-auth btn-principal">Guardar Cambios</button>
-                        <button type="button" class="btn-auth btn-secundario" onclick="cerrarModalEditar()">Cancelar</button>
-                     </div>
-                  </form>
-               </div>
-            </div>
-
-            <!-- Contenedor de Auth (Login/Registro) - cuando NO está logueado -->
-            <div id="contenedor-auth" class="contenedor-auth">
-               <!-- Formulario de Inicio de Sesión -->
-               <div class="formulario-auth" id="formulario-login">
-                  <div class="cabecera-auth">
-                     <h2>Iniciar Sesión</h2>
-                     <p>Accede a tu cuenta de Teruel Aventura</p>
-                  </div>
-                  
-                  <form class="form-auth" method="post" action="perfil.php">
-                     <input type="hidden" name="accion" value="login">
-                     <div class="grupo-input">
-                        <label for="email-login">Correo Electrónico</label>
-                        <input type="email" id="email-login" name="email" class="input-auth" placeholder="tucorreo@ejemplo.com" required>
-                     </div>
-
-                     <div class="grupo-input">
-                        <label for="password-login">Contraseña</label>
-                        <input type="password" id="password-login" name="password" class="input-auth" placeholder="••••••••" required>
-                     </div>
-                     
-                     <div class="grupo-checkbox">
-                        <input type="checkbox" id="recordar">
-                        <label for="recordar">Recordar mi sesión</label>
-                     </div>
-                     
-                     <button type="submit" class="btn-auth btn-principal">Iniciar Sesión</button>
-                     
-                     <div class="separador-auth">
-                        <span>¿No tienes cuenta?</span>
-                     </div>
-                     <button type="button" class="btn-auth btn-secundario" onclick="mostrarRegistro()">Crear Cuenta Nueva</button>
-                  </form>
-               </div>
-               
-               <!-- Formulario de Registro -->
-               <div class="formulario-auth oculto" id="formulario-registro">
-                  <div class="cabecera-auth">
-                     <h2>Crear Cuenta</h2>
-                     <p>Únete a la comunidad Teruel Aventura</p>
-                  </div>
-                  
-                  <form class="form-auth" method="post" action="perfil.php">
-                     <input type="hidden" name="accion" value="registro">
-                     <div class="grupo-input">
-                        <label for="nombre-registro">Nombre Completo</label>
-                        <input type="text" id="nombre-registro" name="nombre" class="input-auth" placeholder="Tu nombre" required>
-                     </div>
-
-                     <div class="grupo-input">
-                        <label for="email-registro">Correo Electrónico</label>
-                        <input type="email" id="email-registro" name="email" class="input-auth" placeholder="tucorreo@ejemplo.com" required>
-                     </div>
-
-                     <div class="grupo-input">
-                        <label for="password-registro">Contraseña</label>
-                        <input type="password" id="password-registro" name="password" class="input-auth" placeholder="Tu contraseña" required>
-                     </div>
-                     
-                     <div class="grupo-input">
-                        <label for="password-confirmar">Confirmar Contraseña</label>
-                        <input type="password" id="password-confirmar" class="input-auth" placeholder="Repite tu contraseña" required>
-                     </div>
-                     
-                     <div class="grupo-checkbox">
-                        <input type="checkbox" id="terminos" required>
-                        <label for="terminos">Acepto los términos y condiciones</label>
-                     </div>
-                     
-                     <button type="submit" class="btn-auth btn-principal">Registrarse</button>
-                     
-                     <div class="separador-auth">
-                        <span>¿Ya tienes cuenta?</span>
-                     </div>
-                     
-                     <button type="button" class="btn-auth btn-secundario" onclick="mostrarLogin()">Iniciar Sesión</button>
-                  </form>
-               </div>
-            </div>
-         </div>
-      </section>
-
-      <!-- Javascript files-->
-      <script src="js/jquery.min.js"></script>
-      <script src="js/popper.min.js"></script>
-      <script src="js/bootstrap.bundle.min.js"></script>
-      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-      <script src="js/teruel-aventura.js"></script>
-   </body>
-</html>
+responderJson([
+    'ok' => $tipoMensaje === 'success' || $tipoMensaje === 'info',
+    'mensaje' => $mensaje,
+    'usuario' => $usuarioSesion,
+]);
