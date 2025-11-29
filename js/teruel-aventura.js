@@ -683,23 +683,23 @@ function eliminarCuenta() {
     const usuario = obtenerUsuarioActual();
     if (!usuario) return;
 
-    sincronizarConServidor('eliminar');
+    sincronizarConServidor('eliminar').then((respuesta) => {
+        if (!respuesta.ok) {
+            alert(respuesta.mensaje || 'No se pudo eliminar la cuenta. Inténtalo más tarde.');
+            return;
+        }
 
-    // Eliminar todas las valoraciones del usuario
-    const valoraciones = obtenerValoraciones();
-    const valoracionesFiltradas = valoraciones.filter(v => v.email !== usuario.email);
-    guardarValoraciones(valoracionesFiltradas);
-    
-    // Eliminar usuario de la lista de registrados
-    const usuarios = obtenerUsuariosRegistrados();
-    const usuariosFiltrados = usuarios.filter(u => u.email !== usuario.email);
-    guardarUsuariosRegistrados(usuariosFiltrados);
-    
-    // Eliminar sesión del usuario
-    localStorage.removeItem('usuarioLogueado');
-    
-    alert('Tu cuenta ha sido eliminada exitosamente. Lamentamos verte partir.');
-    window.location.href = 'index.html';
+        // Eliminar todas las valoraciones del usuario
+        const valoraciones = obtenerValoraciones();
+        const valoracionesFiltradas = valoraciones.filter(v => v.email !== usuario.email);
+        guardarValoraciones(valoracionesFiltradas);
+
+        // Eliminar sesión del usuario
+        localStorage.removeItem('usuarioLogueado');
+
+        alert(respuesta.mensaje || 'Tu cuenta ha sido eliminada exitosamente. Lamentamos verte partir.');
+        window.location.href = 'index.html';
+    });
 }
 
 // ============================================
@@ -1062,40 +1062,32 @@ document.addEventListener('DOMContentLoaded', function() {
         // Event listener para formulario de editar perfil
         const formEditarPerfil = document.getElementById('form-editar-perfil');
         if (formEditarPerfil) {
-            formEditarPerfil.addEventListener('submit', function(e) {
+            formEditarPerfil.addEventListener('submit', async function(e) {
                 e.preventDefault();
-                
+
                 const nuevoNombre = document.getElementById('editar-nombre').value.trim();
                 const nuevoEmail = document.getElementById('editar-email').value.trim();
-                
+
                 if (!nuevoNombre || !nuevoEmail) {
                     alert('Por favor, completa todos los campos.');
                     return;
                 }
-                
+
                 const usuario = obtenerUsuarioActual();
                 const emailAntiguo = usuario.email;
-                
-                // Verificar si el nuevo email ya está registrado (por otro usuario)
-                if (nuevoEmail !== emailAntiguo && emailYaRegistrado(nuevoEmail)) {
-                    alert('Este correo electrónico ya está en uso por otra cuenta.');
+
+                const respuesta = await sincronizarConServidor('editar', { nombre: nuevoNombre, email: nuevoEmail });
+
+                if (!respuesta.ok) {
+                    alert(respuesta.mensaje || 'No se pudieron actualizar tus datos.');
                     return;
                 }
-                
+
                 // Actualizar datos del usuario en sesión
                 usuario.nombre = nuevoNombre;
                 usuario.email = nuevoEmail;
                 localStorage.setItem('usuarioLogueado', JSON.stringify(usuario));
-                
-                // Actualizar usuario en la lista de registrados
-                const usuarios = obtenerUsuariosRegistrados();
-                const indiceUsuario = usuarios.findIndex(u => u.email === emailAntiguo);
-                if (indiceUsuario !== -1) {
-                    usuarios[indiceUsuario].nombre = nuevoNombre;
-                    usuarios[indiceUsuario].email = nuevoEmail;
-                    guardarUsuariosRegistrados(usuarios);
-                }
-                
+
                 // Actualizar email en todas las valoraciones del usuario
                 const valoraciones = obtenerValoraciones();
                 valoraciones.forEach(v => {
@@ -1106,9 +1098,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 guardarValoraciones(valoraciones);
 
-                sincronizarConServidor('editar', { nombre: nuevoNombre, email: nuevoEmail });
-
-                alert('Datos actualizados correctamente.');
+                alert(respuesta.mensaje || 'Datos actualizados correctamente.');
                 cerrarModalEditar();
                 cargarDatosUsuario(usuario);
                 cargarValoracionesUsuario(usuario);
@@ -1118,107 +1108,101 @@ document.addEventListener('DOMContentLoaded', function() {
         // Event listener para formulario de registro
         const formRegistro = document.getElementById('formulario-registro');
         if (formRegistro) {
-            formRegistro.querySelector('form').addEventListener('submit', function(e) {
+            formRegistro.querySelector('form').addEventListener('submit', async function(e) {
                 e.preventDefault();
-                
+
                 const nombre = document.getElementById('nombre-registro').value.trim();
                 const email = document.getElementById('email-registro').value.trim();
                 const password = document.getElementById('password-registro').value;
                 const passwordConfirmar = document.getElementById('password-confirmar').value;
-                
+
                 // Validar que todos los campos estén completos
                 if (!nombre || !email || !password || !passwordConfirmar) {
                     alert('Por favor, completa todos los campos.');
                     return;
                 }
-                
+
                 // Validar que las contraseñas coincidan
                 if (password !== passwordConfirmar) {
                     alert('Las contraseñas no coinciden. Por favor, verifica e intenta de nuevo.');
                     return;
                 }
-                
-                // Verificar si el email ya está registrado
-                if (emailYaRegistrado(email)) {
-                    alert('Este correo electrónico ya está registrado. Por favor, inicia sesión o usa otro correo.');
-                    return;
+
+                try {
+                    const respuesta = await fetch('perfil.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                        body: JSON.stringify({ accion: 'registro', nombre, email, password })
+                    });
+
+                    const datos = respuesta.ok ? await respuesta.json() : { ok: false, mensaje: 'No se pudo contactar con el servidor.' };
+
+                    if (!datos.ok) {
+                        alert(datos.mensaje || 'No se pudo completar el registro.');
+                        return;
+                    }
+
+                    const usuario = datos.usuario || {
+                        nombre,
+                        email,
+                        fechaRegistro: new Date().toISOString()
+                    };
+
+                    localStorage.setItem('usuarioLogueado', JSON.stringify(usuario));
+
+                    alert(datos.mensaje || '¡Cuenta creada exitosamente! Bienvenido, ' + nombre + '.');
+                    window.location.href = 'perfil.html';
+                } catch (error) {
+                    console.error('Error al registrar usuario:', error);
+                    alert('Ocurrió un error al registrar la cuenta. Inténtalo de nuevo más tarde.');
                 }
-                
-                // Crear objeto de usuario para el registro
-                const usuarioRegistro = {
-                    nombre: nombre,
-                    email: email,
-                    password: password, // En producción esto debería estar encriptado
-                    fechaRegistro: new Date().toISOString()
-                };
-                
-                // Guardar en la lista de usuarios registrados
-                const usuarios = obtenerUsuariosRegistrados();
-                usuarios.push(usuarioRegistro);
-                guardarUsuariosRegistrados(usuarios);
-                
-                // Crear objeto de sesión (sin password)
-                const usuario = {
-                    nombre: nombre,
-                    email: email,
-                    fechaRegistro: usuarioRegistro.fechaRegistro
-                };
-
-                // Iniciar sesión automáticamente
-                localStorage.setItem('usuarioLogueado', JSON.stringify(usuario));
-
-                sincronizarConServidor('registro', { nombre, email, password });
-
-                // Mostrar mensaje de éxito y redirigir
-                alert('¡Cuenta creada exitosamente! Bienvenido, ' + nombre + '.');
-                window.location.href = 'perfil.html';
             });
         }
         
         // Event listener para formulario de login
         const formLogin = document.getElementById('formulario-login');
         if (formLogin) {
-            formLogin.querySelector('form').addEventListener('submit', function(e) {
+            formLogin.querySelector('form').addEventListener('submit', async function(e) {
                 e.preventDefault();
-                
+
                 const email = document.getElementById('email-login').value.trim();
                 const password = document.getElementById('password-login').value;
-                
+
                 // Validar que todos los campos estén completos
                 if (!email || !password) {
                     alert('Por favor, completa todos los campos.');
                     return;
                 }
-                
-                // Buscar el usuario registrado
-                const usuarioRegistrado = buscarUsuarioPorEmail(email);
-                
-                if (!usuarioRegistrado) {
-                    alert('No existe una cuenta con este correo electrónico. Por favor, regístrate primero.');
-                    return;
-                }
-                
-                // Verificar la contraseña
-                if (usuarioRegistrado.password !== password) {
-                    alert('Contraseña incorrecta. Por favor, intenta de nuevo.');
-                    return;
-                }
-                
-                // Crear objeto de sesión (sin password)
-                const usuario = {
-                    nombre: usuarioRegistrado.nombre,
-                    email: usuarioRegistrado.email,
-                    fechaRegistro: usuarioRegistrado.fechaRegistro
-                };
-                
-                // Guardar en localStorage (sesión iniciada)
-                localStorage.setItem('usuarioLogueado', JSON.stringify(usuario));
 
-                sincronizarConServidor('login', { email, password });
+                try {
+                    const respuesta = await fetch('perfil.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                        body: JSON.stringify({ accion: 'login', email, password })
+                    });
 
-                // Mostrar mensaje de éxito y redirigir
-                alert('¡Sesión iniciada correctamente! Bienvenido de nuevo, ' + usuarioRegistrado.nombre + '.');
-                window.location.href = 'perfil.html';
+                    const datos = respuesta.ok ? await respuesta.json() : { ok: false, mensaje: 'No se pudo contactar con el servidor.' };
+
+                    if (!datos.ok) {
+                        alert(datos.mensaje || 'No se pudo iniciar sesión.');
+                        return;
+                    }
+
+                    const usuario = datos.usuario || { nombre: '', email, fechaRegistro: null };
+                    localStorage.setItem('usuarioLogueado', JSON.stringify(usuario));
+
+                    alert(datos.mensaje || '¡Sesión iniciada correctamente!');
+                    window.location.href = 'perfil.html';
+                } catch (error) {
+                    console.error('Error al iniciar sesión:', error);
+                    alert('Ocurrió un error al iniciar sesión. Inténtalo de nuevo más tarde.');
+                }
             });
         }
     }
