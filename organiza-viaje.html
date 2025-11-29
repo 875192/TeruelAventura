@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organiza tu Viaje - Teruel Aventura</title>
+    <meta name="keywords" content="Teruel, viajes organizados, paquetes turísticos, vacaciones">
+    <meta name="description"
+        content="Descubre nuestros paquetes de viajes organizados a Teruel - Experiencias a medida">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!-- Responsive -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Teruel Aventura Custom Styles -->
+    <link rel="stylesheet" type="text/css" href="css/teruel-aventura.css">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header class="seccion-cabecera">
+        <nav class="navbar navbar-expand-lg navbar-custom">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center">
+                    <a href="index.html">
+                        <img src="images/logo-empresa.png" alt="Logo Teruel Aventura" class="imagen-logo">
+                    </a>
+                </div>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse navbar-collapse-custom" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="conoce-teruel.html">CONOCE TERUEL</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="que-hacer.html">QUÉ HACER</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="organiza-viaje.html">ORGANIZA TU VIAJE</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- User Profile Button -->
+                <a class="boton-perfil-usuario d-none d-lg-flex" href="perfil.html">
+                    <i class="fa fa-user"></i>MI PERFIL
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="seccion-hero hero-organiza-viaje">
+        <!-- Añadimos un div para el fondo -->
+        <div class="hero-background"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h1 class="titulo-hero">Organiza tu Viaje</h1>
+                    <p class="subtitulo-hero">Experiencias diseñadas a medida para descubrir lo mejor de Teruel</p>
+                    <a href="#catalogo" class="btn-base btn-rectangular btn-borde btn-hover-invertir btn-blanco">Ver
+                        Paquetes</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catálogo de Viajes -->
+    <section class="content-section" id="catalogo">
+        <div class="container">
+            <div class="titulo-seccion">
+                <h2 class="section-title">Nuestros Paquetes de Viaje</h2>
+                <p>Hemos diseñado experiencias únicas que combinan lo mejor de Teruel: <span class="highlight">arte
+                        mudéjar, naturaleza, gastronomía y tradiciones</span>. Cada paquete incluye alojamiento,
+                    actividades guiadas, comidas y transporte. Solo tienes que elegir tu aventura y dejarte llevar.</p>
+            </div>
+
+            <!-- Lista de Viajes Organizados -->
+            <div class="viajes-catalogo">
+
+                <!-- Viaje 1: Escapada Romántica -->
+                <div class="viaje-item">
+                    <div class="viaje-header" onclick="toggleViaje('viaje1')">
+                        <!-- Imagen del viaje (puedes agregar tu imagen aquí) -->
+                        <img src="images/AMANTES.webp" alt="Escapada Romántica" class="viaje-imagen">
+
+                        <div class="viaje-header-content">
+                            <div class="viaje-info-principal">
+                                <div class="viaje-icono">
+                                    <i class="fa fa-heart"></i>
+                                </div>
+                                <div class="viaje-titulo-seccion">
+                                    <h3>Escapada Romántica: Teruel y Albarracín</h3>
+                                    <p class="viaje-subtitulo">Revive la leyenda de Los Amantes</p>
+                                </div>
+                            </div>
+                            <div class="viaje-precio-seccion">
+                                <span class="viaje-precio">495€</span>
+                                <span class="viaje-por-persona">por persona</span>
+                                <i class="fa fa-chevron-down toggle-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="viaje-detalles" id="viaje1">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p class="viaje-descripcion">Vive una experiencia inolvidable en pareja descubriendo los
+                                    rincones más románticos de Teruel. Visita el Mausoleo de Los Amantes, pasea por las
+                                    calles medievales de Albarracín y disfruta de cenas especiales con vistas
+                                    espectaculares.</p>
+
+                                <div class="viaje-caracteristicas">
+                                    <h4><i class="fa fa-list-ul"></i> Incluye:</h4>
+                                    <ul>
+                                        <li>2 noches en hotel boutique 4* en el centro de Teruel</li>
+                                        <li>Desayunos y 2 cenas románticas con menú degustación</li>
+                                        <li>Visita guiada al Mausoleo de Los Amantes</li>
+                                        <li>Excursión de día completo a Albarracín</li>
+                                        <li>Ruta del Arte Mudéjar con guía especializado</li>
+                                        <li>Degustación de vinos locales</li>
+                                    </ul>
+                                </div>
+
+                                <div class="viaje-stats">
+                                    <div class="stat-item">
+                                        <i class="fa fa-clock-o"></i>
+                                        <span><strong>Duración:</strong> 3 días / 2 noches</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fa fa-calendar"></i>
+                                        <span><strong>Disponible:</strong> Todo el año</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fa fa-users"></i>
+                                        <span><strong>Grupo:</strong> Mínimo 2 personas</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="viaje-valoracion">
+                                    <div class="valoracion-estrellas">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                    <p class="valoracion-numero">Sin valoraciones</p>
+                                    <p class="valoracion-opiniones">0 opiniones</p>
+                                </div>
+
+                                <button class="btn-pago" onclick="irAlPago('viaje1')">
+                                    <i class="fa fa-credit-card"></i> Ir al Pago
+                                </button>
+
+                                <!-- Sección de Valoraciones -->
+                                <div class="seccion-valoraciones-completa">
+                                    <h4><i class="fa fa-comments"></i> Valoraciones de Clientes</h4>
+
+                                    <!-- Lista de valoraciones (inicialmente vacía) -->
+                                    <div class="lista-valoraciones" id="valoraciones-viaje1">
+                                        <p class="sin-valoraciones">Aún no hay valoraciones. ¡Sé el primero en compartir
+                                            tu experiencia!</p>
+                                    </div>
+
+                                    <!-- Formulario para añadir valoración -->
+                                    <div class="formulario-valoracion" id="form-valoracion-viaje1">
+                                        <h5>Escribe tu valoración</h5>
+                                        <div class="form-group">
+                                            <label>Puntuación:</label>
+                                            <div class="selector-estrellas" id="estrellas-viaje1">
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="1"></i>
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="2"></i>
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="3"></i>
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="4"></i>
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="5"></i>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Tu comentario:</label>
+                                            <textarea class="form-control" id="comentario-viaje1" rows="3"
+                                                placeholder="Cuéntanos tu experiencia..."></textarea>
+                                        </div>
+                                        <button class="btn-enviar-valoracion" onclick="enviarValoracion('viaje1')">
+                                            <i class="fa fa-paper-plane"></i> Enviar Valoración
+                                        </button>
+                                    </div>
+
+                                    <!-- Mensaje para usuarios no registrados -->
+                                    <div class="mensaje-login-requerido" id="login-requerido-viaje1"
+                                        style="display: none;">
+                                        <i class="fa fa-lock"></i>
+                                        <p>Debes iniciar sesión para escribir una valoración</p>
+                                        <a href="perfil.html" class="btn-ir-login">
+                                            <i class="fa fa-user"></i> Iniciar Sesión
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Viaje 2: Aventura en Familia -->
+                <div class="viaje-item">
+                    <div class="viaje-header" onclick="toggleViaje('viaje2')">
+                        <!-- Imagen del viaje (puedes agregar tu imagen aquí) -->
+                        <img src="images/dinopolis.jpg" alt="Aventura en Familia" class="viaje-imagen">
+
+                        <div class="viaje-header-content">
+                            <div class="viaje-info-principal">
+                                <div class="viaje-icono">
+                                    <i class="fa fa-child"></i>
+                                </div>
+                                <div class="viaje-titulo-seccion">
+                                    <h3>Aventura en Familia: Dinópolis y Más</h3>
+                                    <p class="viaje-subtitulo">Diversión para toda la familia</p>
+                                </div>
+                            </div>
+                            <div class="viaje-precio-seccion">
+                                <span class="viaje-precio">385€</span>
+                                <span class="viaje-por-persona">por persona</span>
+                                <i class="fa fa-chevron-down toggle-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="viaje-detalles" id="viaje2">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p class="viaje-descripcion">El viaje perfecto para familias con niños. Explora el mundo
+                                    de los dinosaurios en Dinópolis, descubre el mudéjar de forma divertida y disfruta
+                                    de actividades al aire libre diseñadas para todas las edades.</p>
+
+                                <div class="viaje-caracteristicas">
+                                    <h4><i class="fa fa-list-ul"></i> Incluye:</h4>
+                                    <ul>
+                                        <li>3 noches en hotel familiar 3* con habitaciones familiares</li>
+                                        <li>Pensión completa (desayunos, comidas y cenas)</li>
+                                        <li>Entrada completa a Dinópolis (parque principal)</li>
+                                        <li>Gymkhana infantil por el casco histórico</li>
+                                        <li>Taller de cerámica mudéjar para niños</li>
+                                        <li>Ruta en bici por el parque fluvial</li>
+                                        <li>Kit de actividades infantiles</li>
+                                    </ul>
+                                </div>
+
+                                <div class="viaje-stats">
+                                    <div class="stat-item">
+                                        <i class="fa fa-clock-o"></i>
+                                        <span><strong>Duración:</strong> 4 días / 3 noches</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fa fa-calendar"></i>
+                                        <span><strong>Disponible:</strong> Marzo a noviembre</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fa fa-users"></i>
+                                        <span><strong>Grupo:</strong> Familias (descuento niños)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="viaje-valoracion">
+                                    <div class="valoracion-estrellas">
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                    <p class="valoracion-numero">Sin valoraciones</p>
+                                    <p class="valoracion-opiniones">0 opiniones</p>
+                                </div>
+
+                                <button class="btn-pago" onclick="irAlPago('viaje2')">
+                                    <i class="fa fa-credit-card"></i> Ir al Pago
+                                </button>
+
+                                <!-- Sección de Valoraciones -->
+                                <div class="seccion-valoraciones-completa">
+                                    <h4><i class="fa fa-comments"></i> Valoraciones de Clientes</h4>
+
+                                    <!-- Lista de valoraciones (inicialmente vacía) -->
+                                    <div class="lista-valoraciones" id="valoraciones-viaje2">
+                                        <p class="sin-valoraciones">Aún no hay valoraciones. ¡Sé el primero en compartir
+                                            tu experiencia!</p>
+                                    </div>
+
+                                    <!-- Formulario para añadir valoración -->
+                                    <div class="formulario-valoracion" id="form-valoracion-viaje2">
+                                        <h5>Escribe tu valoración</h5>
+                                        <div class="form-group">
+                                            <label>Puntuación:</label>
+                                            <div class="selector-estrellas" id="estrellas-viaje2">
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="1"></i>
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="2"></i>
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="3"></i>
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="4"></i>
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="5"></i>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Tu comentario:</label>
+                                            <textarea class="form-control" id="comentario-viaje2" rows="3"
+                                                placeholder="Cuéntanos tu experiencia..."></textarea>
+                                        </div>
+                                        <button class="btn-enviar-valoracion" onclick="enviarValoracion('viaje2')">
+                                            <i class="fa fa-paper-plane"></i> Enviar Valoración
+                                        </button>
+                                    </div>
+
+                                    <!-- Mensaje para usuarios no registrados -->
+                                    <div class="mensaje-login-requerido" id="login-requerido-viaje2"
+                                        style="display: none;">
+                                        <i class="fa fa-lock"></i>
+                                        <p>Debes iniciar sesión para escribir una valoración</p>
+                                        <a href="perfil.html" class="btn-ir-login">
+                                            <i class="fa fa-user"></i> Iniciar Sesión
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Viaje 3: Ruta Gastronómica -->
+                <div class="viaje-item">
+                    <div class="viaje-header" onclick="toggleViaje('viaje3')">
+                        <!-- Imagen del viaje (puedes agregar tu imagen aquí) -->
+                        <img src="images/Gatronomia.jpg" alt="Ruta Gastronómica" class="viaje-imagen">
+
+                        <div class="viaje-header-content">
+                            <div class="viaje-info-principal">
+                                <div class="viaje-icono">
+                                    <i class="fa fa-cutlery"></i>
+                                </div>
+                                <div class="viaje-titulo-seccion">
+                                    <h3>Ruta Gastronómica: Sabores de Teruel</h3>
+                                    <p class="viaje-subtitulo">Un viaje para el paladar</p>
+                                </div>
+                            </div>
+                            <div class="viaje-precio-seccion">
+                                <span class="viaje-precio">595€</span>
+                                <span class="viaje-por-persona">por persona</span>
+                                <i class="fa fa-chevron-down toggle-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="viaje-detalles" id="viaje3">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p class="viaje-descripcion">Una experiencia culinaria única descubriendo los productos
+                                    estrella de Teruel: jamón DOP, trufa negra, ternasco y los mejores vinos. Visitas a
+                                    productores locales, talleres de cocina y degustaciones exclusivas.</p>
+
+                                <div class="viaje-caracteristicas">
+                                    <h4><i class="fa fa-list-ul"></i> Incluye:</h4>
+                                    <ul>
+                                        <li>3 noches en hotel con restaurante gastronómico</li>
+                                        <li>Pensión completa con menús degustación</li>
+                                        <li>Visita a secadero de jamón con degustación</li>
+                                        <li>Experiencia de búsqueda de trufas (temporada)</li>
+                                        <li>Taller de cocina tradicional turolense</li>
+                                        <li>Cata de vinos en bodega local</li>
+                                        <li>Lote de productos gourmet de Teruel</li>
+                                    </ul>
+                                </div>
+
+                                <div class="viaje-stats">
+                                    <div class="stat-item">
+                                        <i class="fa fa-clock-o"></i>
+                                        <span><strong>Duración:</strong> 4 días / 3 noches</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fa fa-calendar"></i>
+                                        <span><strong>Disponible:</strong> Todo el año</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fa fa-users"></i>
+                                        <span><strong>Grupo:</strong> Mínimo 4 personas</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="viaje-valoracion">
+                                    <div class="valoracion-estrellas">
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                    <p class="valoracion-numero">Sin valoraciones</p>
+                                    <p class="valoracion-opiniones">0 opiniones</p>
+                                </div>
+
+                                <button class="btn-pago" onclick="irAlPago('viaje3')">
+                                    <i class="fa fa-credit-card"></i> Ir al Pago
+                                </button>
+
+                                <!-- Sección de Valoraciones -->
+                                <div class="seccion-valoraciones-completa">
+                                    <h4><i class="fa fa-comments"></i> Valoraciones de Clientes</h4>
+
+                                    <!-- Lista de valoraciones (inicialmente vacía) -->
+                                    <div class="lista-valoraciones" id="valoraciones-viaje3">
+                                        <p class="sin-valoraciones">Aún no hay valoraciones. ¡Sé el primero en compartir
+                                            tu experiencia!</p>
+                                    </div>
+
+                                    <!-- Formulario para añadir valoración -->
+                                    <div class="formulario-valoracion" id="form-valoracion-viaje3">
+                                        <h5>Escribe tu valoración</h5>
+                                        <div class="form-group">
+                                            <label>Puntuación:</label>
+                                            <div class="selector-estrellas" id="estrellas-viaje3">
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="1"></i>
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="2"></i>
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="3"></i>
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="4"></i>
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="5"></i>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Tu comentario:</label>
+                                            <textarea class="form-control" id="comentario-viaje3" rows="3"
+                                                placeholder="Cuéntanos tu experiencia..."></textarea>
+                                        </div>
+                                        <button class="btn-enviar-valoracion" onclick="enviarValoracion('viaje3')">
+                                            <i class="fa fa-paper-plane"></i> Enviar Valoración
+                                        </button>
+                                    </div>
+
+                                    <!-- Mensaje para usuarios no registrados -->
+                                    <div class="mensaje-login-requerido" id="login-requerido-viaje3"
+                                        style="display: none;">
+                                        <i class="fa fa-lock"></i>
+                                        <p>Debes iniciar sesión para escribir una valoración</p>
+                                        <a href="perfil.html" class="btn-ir-login">
+                                            <i class="fa fa-user"></i> Iniciar Sesión
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Viaje 4: Naturaleza y Senderismo -->
+                <div class="viaje-item">
+                    <div class="viaje-header" onclick="toggleViaje('viaje4')">
+                        <!-- Imagen del viaje (puedes agregar tu imagen aquí) -->
+                        <img src="images/Pinares-de-Rodeno.jpg" alt="Naturaleza y Senderismo" class="viaje-imagen">
+
+                        <div class="viaje-header-content">
+                            <div class="viaje-info-principal">
+                                <div class="viaje-icono">
+                                    <i class="fa fa-tree"></i>
+                                </div>
+                                <div class="viaje-titulo-seccion">
+                                    <h3>Naturaleza y Senderismo: Sierra de Teruel</h3>
+                                    <p class="viaje-subtitulo">Para amantes del aire libre</p>
+                                </div>
+                            </div>
+                            <div class="viaje-precio-seccion">
+                                <span class="viaje-precio">425€</span>
+                                <span class="viaje-por-persona">por persona</span>
+                                <i class="fa fa-chevron-down toggle-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="viaje-detalles" id="viaje4">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p class="viaje-descripcion">Descubre los paisajes más espectaculares de Teruel a través
+                                    de rutas de senderismo por la Sierra de Albarracín, los Pinares de Rodeno y el
+                                    nacimiento del río Pitarque. Incluye guía de montaña profesional.</p>
+
+                                <div class="viaje-caracteristicas">
+                                    <h4><i class="fa fa-list-ul"></i> Incluye:</h4>
+                                    <ul>
+                                        <li>3 noches en casa rural con encanto</li>
+                                        <li>Pensión completa con picnic para rutas</li>
+                                        <li>Guía de montaña profesional titulado</li>
+                                        <li>3 rutas de senderismo de nivel medio</li>
+                                        <li>Visita a pinturas rupestres del Rodeno</li>
+                                        <li>Observación de fauna autóctona</li>
+                                        <li>Material de senderismo (bastones, mochilas)</li>
+                                        <li>Seguro de actividades deportivas</li>
+                                    </ul>
+                                </div>
+
+                                <div class="viaje-stats">
+                                    <div class="stat-item">
+                                        <i class="fa fa-clock-o"></i>
+                                        <span><strong>Duración:</strong> 4 días / 3 noches</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fa fa-calendar"></i>
+                                        <span><strong>Disponible:</strong> Abril a octubre</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fa fa-users"></i>
+                                        <span><strong>Grupo:</strong> 6-12 personas</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="viaje-valoracion">
+                                    <div class="valoracion-estrellas">
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                    <p class="valoracion-numero">Sin valoraciones</p>
+                                    <p class="valoracion-opiniones">0 opiniones</p>
+                                </div>
+
+                                <button class="btn-pago" onclick="irAlPago('viaje4')">
+                                    <i class="fa fa-credit-card"></i> Ir al Pago
+                                </button>
+
+                                <!-- Sección de Valoraciones -->
+                                <div class="seccion-valoraciones-completa">
+                                    <h4><i class="fa fa-comments"></i> Valoraciones de Clientes</h4>
+
+                                    <!-- Lista de valoraciones (inicialmente vacía) -->
+                                    <div class="lista-valoraciones" id="valoraciones-viaje4">
+                                        <p class="sin-valoraciones">Aún no hay valoraciones. ¡Sé el primero en compartir
+                                            tu experiencia!</p>
+                                    </div>
+
+                                    <!-- Formulario para añadir valoración -->
+                                    <div class="formulario-valoracion" id="form-valoracion-viaje4">
+                                        <h5>Escribe tu valoración</h5>
+                                        <div class="form-group">
+                                            <label>Puntuación:</label>
+                                            <div class="selector-estrellas" id="estrellas-viaje4">
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="1"></i>
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="2"></i>
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="3"></i>
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="4"></i>
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="5"></i>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Tu comentario:</label>
+                                            <textarea class="form-control" id="comentario-viaje4" rows="3"
+                                                placeholder="Cuéntanos tu experiencia..."></textarea>
+                                        </div>
+                                        <button class="btn-enviar-valoracion" onclick="enviarValoracion('viaje4')">
+                                            <i class="fa fa-paper-plane"></i> Enviar Valoración
+                                        </button>
+                                    </div>
+
+                                    <!-- Mensaje para usuarios no registrados -->
+                                    <div class="mensaje-login-requerido" id="login-requerido-viaje4"
+                                        style="display: none;">
+                                        <i class="fa fa-lock"></i>
+                                        <p>Debes iniciar sesión para escribir una valoración</p>
+                                        <a href="perfil.html" class="btn-ir-login">
+                                            <i class="fa fa-user"></i> Iniciar Sesión
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Viaje 5: Arte y Cultura -->
+                <div class="viaje-item">
+                    <div class="viaje-header" onclick="toggleViaje('viaje5')">
+                        <!-- Imagen del viaje (puedes agregar tu imagen aquí) -->
+                        <img src="images/arteycultura.jpeg" alt="Arte y Cultura" class="viaje-imagen">
+
+                        <div class="viaje-header-content">
+                            <div class="viaje-info-principal">
+                                <div class="viaje-icono">
+                                    <i class="fa fa-university"></i>
+                                </div>
+                                <div class="viaje-titulo-seccion">
+                                    <h3>Arte y Cultura: Patrimonio de la Humanidad</h3>
+                                    <p class="viaje-subtitulo">Inmersión en el mudéjar</p>
+                                </div>
+                            </div>
+                            <div class="viaje-precio-seccion">
+                                <span class="viaje-precio">450€</span>
+                                <span class="viaje-por-persona">por persona</span>
+                                <i class="fa fa-chevron-down toggle-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="viaje-detalles" id="viaje5">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p class="viaje-descripcion">Un viaje cultural profundo por el arte mudéjar de Teruel,
+                                    declarado Patrimonio de la Humanidad. Visitas exclusivas a monumentos, conferencias
+                                    con expertos en arte medieval y talleres especializados.</p>
+
+                                <div class="viaje-caracteristicas">
+                                    <h4><i class="fa fa-list-ul"></i> Incluye:</h4>
+                                    <ul>
+                                        <li>3 noches en hotel histórico en el centro</li>
+                                        <li>Desayuno y 2 comidas</li>
+                                        <li>Visita a las 4 torres mudéjares UNESCO</li>
+                                        <li>Acceso exclusivo a la Catedral y su museo</li>
+                                        <li>Conferencia sobre arte mudéjar</li>
+                                        <li>Visita al Museo Provincial</li>
+                                        <li>Excursión a pueblos con patrimonio mudéjar</li>
+                                        <li>Libro especializado en arte mudéjar</li>
+                                    </ul>
+                                </div>
+
+                                <div class="viaje-stats">
+                                    <div class="stat-item">
+                                        <i class="fa fa-clock-o"></i>
+                                        <span><strong>Duración:</strong> 4 días / 3 noches</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fa fa-calendar"></i>
+                                        <span><strong>Disponible:</strong> Todo el año</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fa fa-users"></i>
+                                        <span><strong>Grupo:</strong> 8-15 personas</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="viaje-valoracion">
+                                    <div class="valoracion-estrellas">
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                    <p class="valoracion-numero">Sin valoraciones</p>
+                                    <p class="valoracion-opiniones">0 opiniones</p>
+                                </div>
+
+                                <button class="btn-pago" onclick="irAlPago('viaje5')">
+                                    <i class="fa fa-credit-card"></i> Ir al Pago
+                                </button>
+
+                                <!-- Sección de Valoraciones -->
+                                <div class="seccion-valoraciones-completa">
+                                    <h4><i class="fa fa-comments"></i> Valoraciones de Clientes</h4>
+
+                                    <!-- Lista de valoraciones (inicialmente vacía) -->
+                                    <div class="lista-valoraciones" id="valoraciones-viaje5">
+                                        <p class="sin-valoraciones">Aún no hay valoraciones. ¡Sé el primero en compartir
+                                            tu experiencia!</p>
+                                    </div>
+
+                                    <!-- Formulario para añadir valoración -->
+                                    <div class="formulario-valoracion" id="form-valoracion-viaje5">
+                                        <h5>Escribe tu valoración</h5>
+                                        <div class="form-group">
+                                            <label>Puntuación:</label>
+                                            <div class="selector-estrellas" id="estrellas-viaje5">
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="1"></i>
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="2"></i>
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="3"></i>
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="4"></i>
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="5"></i>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Tu comentario:</label>
+                                            <textarea class="form-control" id="comentario-viaje5" rows="3"
+                                                placeholder="Cuéntanos tu experiencia..."></textarea>
+                                        </div>
+                                        <button class="btn-enviar-valoracion" onclick="enviarValoracion('viaje5')">
+                                            <i class="fa fa-paper-plane"></i> Enviar Valoración
+                                        </button>
+                                    </div>
+
+                                    <!-- Mensaje para usuarios no registrados -->
+                                    <div class="mensaje-login-requerido" id="login-requerido-viaje5"
+                                        style="display: none;">
+                                        <i class="fa fa-lock"></i>
+                                        <p>Debes iniciar sesión para escribir una valoración</p>
+                                        <a href="perfil.html" class="btn-ir-login">
+                                            <i class="fa fa-user"></i> Iniciar Sesión
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Viaje 6: Fin de Semana Express -->
+                <div class="viaje-item">
+                    <div class="viaje-header" onclick="toggleViaje('viaje6')">
+                        <!-- Imagen del viaje (puedes agregar tu imagen aquí) -->
+                        <img src="images/teruelPueblo.jpeg" alt="Fin de Semana Express" class="viaje-imagen">
+
+                        <div class="viaje-header-content">
+                            <div class="viaje-info-principal">
+                                <div class="viaje-icono">
+                                    <i class="fa fa-flash"></i>
+                                </div>
+                                <div class="viaje-titulo-seccion">
+                                    <h3>Fin de Semana Express: Lo Mejor de Teruel</h3>
+                                    <p class="viaje-subtitulo">Escapada rápida imprescindible</p>
+                                </div>
+                            </div>
+                            <div class="viaje-precio-seccion">
+                                <span class="viaje-precio">275€</span>
+                                <span class="viaje-por-persona">por persona</span>
+                                <i class="fa fa-chevron-down toggle-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="viaje-detalles" id="viaje6">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p class="viaje-descripcion">¿Poco tiempo? No hay problema. Este paquete concentra lo
+                                    esencial de Teruel en un fin de semana inolvidable: mudéjar, gastronomía, naturaleza
+                                    y cultura en dos días intensos pero perfectamente organizados.</p>
+
+                                <div class="viaje-caracteristicas">
+                                    <h4><i class="fa fa-list-ul"></i> Incluye:</h4>
+                                    <ul>
+                                        <li>2 noches en hotel céntrico 3*</li>
+                                        <li>Desayunos y 1 cena con productos locales</li>
+                                        <li>Tour guiado por el casco histórico</li>
+                                        <li>Visita al Mausoleo de Los Amantes</li>
+                                        <li>Entrada a la Torre de San Martín</li>
+                                        <li>Medio día en Albarracín con guía</li>
+                                        <li>Degustación de jamón de Teruel</li>
+                                        <li>Mapa y guía turística</li>
+                                    </ul>
+                                </div>
+
+                                <div class="viaje-stats">
+                                    <div class="stat-item">
+                                        <i class="fa fa-clock-o"></i>
+                                        <span><strong>Duración:</strong> 3 días / 2 noches</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fa fa-calendar"></i>
+                                        <span><strong>Disponible:</strong> Todo el año</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fa fa-users"></i>
+                                        <span><strong>Grupo:</strong> Individual o grupos</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="viaje-valoracion">
+                                    <div class="valoracion-estrellas">
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                    <p class="valoracion-numero">Sin valoraciones</p>
+                                    <p class="valoracion-opiniones">0 opiniones</p>
+                                </div>
+
+                                <button class="btn-pago" onclick="irAlPago('viaje6')">
+                                    <i class="fa fa-credit-card"></i> Ir al Pago
+                                </button>
+
+                                <!-- Sección de Valoraciones -->
+                                <div class="seccion-valoraciones-completa">
+                                    <h4><i class="fa fa-comments"></i> Valoraciones de Clientes</h4>
+
+                                    <!-- Lista de valoraciones (inicialmente vacía) -->
+                                    <div class="lista-valoraciones" id="valoraciones-viaje6">
+                                        <p class="sin-valoraciones">Aún no hay valoraciones. ¡Sé el primero en compartir
+                                            tu experiencia!</p>
+                                    </div>
+
+                                    <!-- Formulario para añadir valoración -->
+                                    <div class="formulario-valoracion" id="form-valoracion-viaje6">
+                                        <h5>Escribe tu valoración</h5>
+                                        <div class="form-group">
+                                            <label>Puntuación:</label>
+                                            <div class="selector-estrellas" id="estrellas-viaje6">
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="1"></i>
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="2"></i>
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="3"></i>
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="4"></i>
+                                                <i class="fa fa-star-o estrella-seleccionable" data-valor="5"></i>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Tu comentario:</label>
+                                            <textarea class="form-control" id="comentario-viaje6" rows="3"
+                                                placeholder="Cuéntanos tu experiencia..."></textarea>
+                                        </div>
+                                        <button class="btn-enviar-valoracion" onclick="enviarValoracion('viaje6')">
+                                            <i class="fa fa-paper-plane"></i> Enviar Valoración
+                                        </button>
+                                    </div>
+
+                                    <!-- Mensaje para usuarios no registrados -->
+                                    <div class="mensaje-login-requerido" id="login-requerido-viaje6"
+                                        style="display: none;">
+                                        <i class="fa fa-lock"></i>
+                                        <p>Debes iniciar sesión para escribir una valoración</p>
+                                        <a href="perfil.html" class="btn-ir-login">
+                                            <i class="fa fa-user"></i> Iniciar Sesión
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Información Adicional -->
+            <div class="info-adicional mt-5">
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="info-box">
+                            <i class="fa fa-shield"></i>
+                            <h4>Cancelación Flexible</h4>
+                            <p>Cancela hasta 7 días antes y recupera el 100% de tu dinero</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="info-box">
+                            <i class="fa fa-headphones"></i>
+                            <h4>Soporte 24/7</h4>
+                            <p>Atención personalizada antes, durante y después de tu viaje</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="info-box">
+                            <i class="fa fa-certificate"></i>
+                            <h4>Mejor Precio Garantizado</h4>
+                            <p>Si encuentras un precio mejor, igualamos la oferta</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="seccion-cta-abajo" id="contacto">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="info-footer">
+                        <h5>Teruel Aventura</h5>
+                        <p>Tu agencia de viajes especializada en descubrir todos los encantos de la provincia de Teruel.
+                        </p>
+                        <div class="enlaces-sociales">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="info-footer">
+                        <h5>Contacto</h5>
+                        <p><i class="fa fa-map-marker"></i> C/ Atarazana, 2, 44003 Teruel</p>
+                        <p><i class="fa fa-phone"></i> +34 000 000 000</p>
+                        <p><i class="fa fa-envelope"></i> info@teruelaventura.com</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="info-footer">
+                        <h5>Enlaces Útiles</h5>
+                        <ul>
+                            <li><a href="#">Sobre Nosotros</a></li>
+                            <li><a href="#">Política de Privacidad</a></li>
+                            <li><a href="#">Términos y Condiciones</a></li>
+                            <li><a href="#">Blog de Viajes</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr class="linea-footer">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p>&copy; 2025 Teruel Aventura. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/teruel-aventura.js"></script>
+</body>
+
+</html>

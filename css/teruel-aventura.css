@@ -1,0 +1,2945 @@
+/* ============================================
+   TERUEL AVENTURA - ESTILOS MODULARES
+   ============================================ */
+
+/* ============================================
+   1. CABECERA Y NAVEGACIÓN
+   ============================================ */
+.seccion-cabecera {
+   background: transparent;
+   padding: 0;
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   z-index: 1000;
+}
+
+.navbar-custom {
+   background: transparent;
+   padding: 20px 0;
+}
+
+.imagen-logo {
+   height: 50px;
+   margin-left: 30px;
+}
+
+.navbar-collapse-custom {
+   justify-content: center !important;
+   position: static !important;
+}
+
+.navbar-nav {
+   position: absolute !important;
+   left: 50% !important;
+   transform: translateX(-50%) !important;
+   margin: 0 !important;
+   display: flex !important;
+}
+
+.navbar-nav .nav-link {
+   color: #fff !important;
+   margin: 0 15px;
+   padding: 10px 0 !important;
+   transition: all 0.3s ease;
+   font-size: 12px !important;
+   text-transform: uppercase;
+   letter-spacing: 0.5px;
+   position: relative;
+   text-decoration: none;
+}
+
+.navbar-nav .nav-link:hover {
+   color: rgba(255,255,255,0.8) !important;
+}
+
+.navbar-nav .nav-link::after {
+   content: '';
+   position: absolute;
+   width: 0;
+   height: 1px;
+   bottom: 0;
+   left: 50%;
+   background-color: white;
+   transition: all 0.3s ease;
+   transform: translateX(-50%);
+}
+
+.navbar-nav .nav-link:hover::after {
+   width: 100%;
+}
+
+.boton-perfil-usuario {
+   background: rgba(255,255,255,0.15);
+   color: white !important;
+   border: 2px solid rgba(255,255,255,0.3);
+   padding: 10px 25px;
+   border-radius: 4px;
+   margin-left: 30px;
+   transition: all 0.3s ease;
+   font-weight: 500;
+   text-decoration: none !important;
+   backdrop-filter: blur(10px);
+   text-transform: uppercase;
+   letter-spacing: 0.5px;
+   font-size: 14px;
+   display: flex;
+   align-items: center;
+}
+
+.boton-perfil-usuario:hover {
+   background: rgba(255,255,255,0.25);
+   border-color: rgba(255,255,255,0.5);
+}
+
+.boton-perfil-usuario i {
+   margin-right: 8px;
+   display: inline-flex;
+   align-items: center;
+}
+
+/* ============================================
+   2. SECCIÓN HERO
+   ============================================ */
+.seccion-hero {
+   background-size: cover;
+   background-position: center;
+   height: 100vh;
+   color: white;
+   text-align: center;
+   position: relative;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.titulo-hero {
+   font-size: 3.5rem;
+   font-weight: 700;
+   margin-bottom: 20px;
+   color: white;
+   text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.subtitulo-hero {
+   font-size: 1.3rem;
+   margin-bottom: 30px;
+   opacity: 0.9;
+}
+
+/* Indicador de scroll */
+.indicador-scroll {
+   position: absolute;
+   bottom: 30px;
+   left: 50%;
+   transform: translateX(-50%);
+   color: white;
+   cursor: pointer;
+   text-align: center;
+   transition: all 0.3s ease;
+}
+
+.indicador-scroll:hover {
+   transform: translateX(-50%) translateY(-10px);
+}
+
+.texto-scroll {
+   font-size: 14px;
+   font-weight: 500;
+   letter-spacing: 2px;
+   text-transform: uppercase;
+}
+
+.flecha-scroll {
+   width: 2px;
+   height: 40px;
+   background: white;
+   margin: 0 auto;
+   position: relative;
+}
+
+.flecha-scroll::after {
+   content: '';
+   position: absolute;
+   bottom: 0;
+   left: 50%;
+   transform: translateX(-50%);
+   width: 0;
+   height: 0;
+   border-left: 6px solid transparent;
+   border-right: 6px solid transparent;
+   border-top: 8px solid white;
+}
+
+.flecha-scroll::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 50%;
+   transform: translateX(-50%);
+   width: 8px;
+   height: 8px;
+   background: white;
+   border-radius: 50%;
+   animation: pulsoScroll 2s infinite;
+}
+
+@keyframes pulsoScroll {
+   0% { transform: translateX(-50%) translateY(0); opacity: 1; }
+   50% { transform: translateX(-50%) translateY(15px); opacity: 0.7; }
+   100% { transform: translateX(-50%) translateY(30px); opacity: 0; }
+}
+
+/* ============================================
+   3. SISTEMA DE BOTONES MODULAR
+   ============================================ */
+.btn-base {
+   padding: 15px 40px;
+   font-weight: 600;
+   text-decoration: none;
+   transition: all 0.3s ease;
+   display: inline-block;
+   cursor: pointer;
+   font-size: 16px;
+}
+
+.btn-rectangular {
+   border-radius: 4px;
+}
+
+.btn-borde {
+   background: transparent;
+   border: 2px solid;
+}
+
+.btn-borde.btn-hover-invertir:hover {
+   background: var(--btn-color) !important;
+   color: var(--btn-hover-text-color) !important;
+}
+
+/* ============================================
+   4. SECCIONES DE CONTENIDO
+   ============================================ */
+.seccion-servicios {
+   padding: 80px 0;
+   background: #f8f9fa;
+}
+
+.titulo-seccion {
+   text-align: center;
+   margin-bottom: 60px;
+}
+
+.titulo-seccion h2 {
+   font-size: 2.5rem;
+   margin-bottom: 15px;
+}
+
+/* ============================================
+   5. TARJETAS (SERVICIOS Y DESTINOS)
+   ============================================ */
+.tarjeta-servicio {
+   background: white;
+   border-radius: 15px;
+   padding: 40px 30px;
+   text-align: center;
+   transition: all 0.3s ease;
+   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+   margin-bottom: 30px;
+}
+
+.tarjeta-servicio:hover {
+   transform: translateY(-10px);
+   box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.icono-servicio {
+   width: 80px;
+   height: 80px;
+   background: linear-gradient(45deg, #3498db, #2980b9);
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin: 0 auto 20px;
+   color: white;
+   font-size: 30px;
+}
+
+/* Tarjetas de destinos */
+.tarjeta-destino {
+   position: relative;
+   height: 500px;
+   overflow: hidden;
+   cursor: pointer;
+   transition: transform 0.3s ease;
+   display: block;
+   text-decoration: none;
+}
+
+.tarjeta-destino:hover {
+   transform: scale(1.02);
+}
+
+.imagen-destino {
+   background-size: cover;
+   background-position: center;
+   height: 100%;
+   position: relative;
+}
+
+.gradiente-destino {
+   background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   height: 100%;
+   z-index: 1;
+}
+
+.contenido-destino {
+   position: absolute;
+   bottom: 30px;
+   left: 30px;
+   right: 30px;
+   z-index: 2;
+}
+
+.titulo-destino {
+   color: white;
+   font-size: 1.6rem;
+   font-weight: 400;
+   margin-bottom: 15px;
+   line-height: 1.3;
+}
+
+.autor-destino {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+}
+
+.avatar-destino {
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 5px;
+   overflow: hidden;
+}
+
+.avatar-destino img {
+   width: 100%;
+   height: 100%;
+   object-fit: contain;
+}
+
+.info-autor-destino p {
+   margin: 0;
+}
+
+.etiqueta-autor-destino {
+   color: rgba(255,255,255,0.8);
+   font-size: 0.85rem;
+   font-style: italic;
+}
+
+.nombre-autor-destino {
+   color: white;
+   font-size: 1rem;
+   font-weight: 500;
+}
+
+/* ============================================
+   6. CTA Y FOOTER
+   ============================================ */
+.seccion-cta-arriba {
+   background: linear-gradient(135deg, grey 0%, black 70%);
+   padding: 60px 0;
+   color: white;
+   text-align: center;
+}
+
+.seccion-cta-abajo{
+   background: linear-gradient(135deg, grey 0%, black 50%);
+   padding: 60px 0;
+   color: white;
+   text-align: center;
+}
+
+.titulo-cta {
+   font-size: 2rem;
+   margin-bottom: 20px;
+}
+
+.texto-cta {
+   font-size: 1.1rem;
+   margin-bottom: 30px;
+}
+
+.info-footer h5 {
+   color: #f39c12;
+   margin-bottom: 20px;
+}
+
+.info-footer ul {
+   list-style: none;
+   padding: 0;
+}
+
+.info-footer ul li a {
+   color: white;
+   text-decoration: none;
+   transition: color 0.3s ease;
+}
+
+.info-footer ul li a:hover {
+   color: #f39c12;
+}
+
+.linea-footer {
+   margin: 40px 0 20px;
+   border-color: rgba(255,255,255,0.2);
+}
+
+.enlaces-sociales a {
+   color: white;
+   font-size: 20px;
+   margin-right: 15px;
+   transition: color 0.3s ease;
+}
+
+.enlaces-sociales a:hover {
+   color: #f39c12;
+}
+
+/* ============================================
+   7. SECCIÓN DE PERFIL Y AUTENTICACIÓN
+   ============================================ */
+.body-perfil {
+   background: linear-gradient(135deg, grey 0%, black 50%);
+   min-height: 100vh;
+   padding-top: 80px;
+}
+
+.seccion-perfil {
+   min-height: calc(100vh - 80px);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 60px 20px;
+}
+
+.contenedor-auth {
+   max-width: 450px;
+   width: 100%;
+   margin: 0 auto;
+}
+
+.formulario-auth {
+   background: rgba(255, 255, 255, 0.05);
+   backdrop-filter: blur(10px);
+   border-radius: 12px;
+   padding: 40px;
+   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+   border: 1px solid rgba(255, 255, 255, 0.1);
+   transition: all 0.3s ease;
+}
+
+.formulario-auth.oculto {
+   display: none;
+}
+
+.contenedor-auth.oculto {
+   display: none;
+}
+
+.cabecera-auth {
+   text-align: center;
+   margin-bottom: 30px;
+}
+
+.cabecera-auth h2 {
+   color: #ffffff;
+   font-size: 2rem;
+   margin-bottom: 10px;
+   font-weight: 600;
+}
+
+.cabecera-auth p {
+   color: rgba(255, 255, 255, 0.7);
+   font-size: 0.95rem;
+   margin: 0;
+}
+
+.form-auth {
+   width: 100%;
+}
+
+.grupo-input {
+   margin-bottom: 20px;
+}
+
+.grupo-input label {
+   display: block;
+   color: rgba(255, 255, 255, 0.9);
+   font-size: 0.9rem;
+   margin-bottom: 8px;
+   font-weight: 500;
+}
+
+.input-auth {
+   width: 100%;
+   padding: 12px 16px;
+   background: rgba(255, 255, 255, 0.08);
+   border: 1px solid rgba(255, 255, 255, 0.2);
+   border-radius: 6px;
+   color: #ffffff;
+   font-size: 0.95rem;
+   transition: all 0.3s ease;
+}
+
+.input-auth:focus {
+   outline: none;
+   background: rgba(255, 255, 255, 0.12);
+   border-color: rgba(255, 255, 255, 0.4);
+}
+
+.input-auth::placeholder {
+   color: rgba(255, 255, 255, 0.4);
+}
+
+.grupo-checkbox {
+   display: flex;
+   align-items: center;
+   margin-bottom: 25px;
+}
+
+.grupo-checkbox input[type="checkbox"] {
+   width: 18px;
+   height: 18px;
+   margin-right: 10px;
+   cursor: pointer;
+}
+
+.grupo-checkbox label {
+   color: rgba(255, 255, 255, 0.8);
+   font-size: 0.9rem;
+   cursor: pointer;
+   margin: 0;
+}
+
+.btn-auth {
+   width: 100%;
+   padding: 14px;
+   border-radius: 6px;
+   font-size: 1rem;
+   font-weight: 600;
+   border: none;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   text-transform: uppercase;
+   letter-spacing: 0.5px;
+}
+
+.btn-principal {
+   background: linear-gradient(135deg, #3498db, #2980b9);
+   color: white;
+   margin-bottom: 15px;
+}
+
+.btn-principal:hover {
+   background: linear-gradient(135deg, #2980b9, #1f618d);
+   transform: translateY(-2px);
+   box-shadow: 0 5px 20px rgba(52, 152, 219, 0.4);
+}
+
+.btn-secundario {
+   background: transparent;
+   color: rgba(255, 255, 255, 0.9);
+   border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-secundario:hover {
+   background: rgba(255, 255, 255, 0.1);
+   border-color: rgba(255, 255, 255, 0.5);
+}
+
+.separador-auth {
+   text-align: center;
+   margin: 20px 0 20px 0;
+   position: relative;
+}
+
+.separador-auth::before,
+.separador-auth::after {
+   content: '';
+   position: absolute;
+   top: 50%;
+   width: 40%;
+   height: 1px;
+   background: rgba(255, 255, 255, 0.2);
+}
+
+.separador-auth::before {
+   left: 0;
+}
+
+.separador-auth::after {
+   right: 0;
+}
+
+.separador-auth span {
+   color: rgba(255, 255, 255, 0.6);
+   font-size: 0.85rem;
+   background: transparent;
+   padding: 0 10px;
+}
+
+/* ============================================
+   8. RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+   .titulo-hero {
+      font-size: 2.5rem;
+   }
+   
+   .navbar-nav .nav-link {
+      margin: 0 5px;
+   }
+   
+   .formulario-auth {
+      padding: 30px 25px;
+   }
+   
+   .cabecera-auth h2 {
+      font-size: 1.6rem;
+   }
+   
+   .seccion-perfil {
+      padding: 40px 15px;
+   }
+}
+
+@media (max-width: 480px) {
+   .formulario-auth {
+      padding: 25px 20px;
+   }
+   
+   .cabecera-auth h2 {
+      font-size: 1.4rem;
+   }
+}
+/* ============================================
+   9. ESTILOS CONOCE TERUEL
+   ============================================ */
+
+/* Destacados de texto */
+.highlight {
+   color: #f39c12;
+   font-weight: 600;
+}
+
+/* Secci�n destacada con fondo */
+.highlight-section {
+   background: linear-gradient(135deg, rgba(243, 156, 18, 0.1) 0%, rgba(243, 156, 18, 0.05) 100%);
+   border-left: 4px solid #f39c12;
+   padding: 25px 30px;
+   margin: 30px 0;
+   border-radius: 8px;
+}
+
+.highlight-section h3 {
+   color: #f39c12;
+   margin-bottom: 15px;
+   font-size: 1.5rem;
+   font-weight: 700;
+}
+
+.highlight-section p {
+   line-height: 1.8;
+   margin-bottom: 10px;
+}
+
+/* T�tulos de secci�n personalizados */
+.section-title {
+   text-align: center;
+   margin: 50px 0 20px 0;
+}
+
+.section-title h2 {
+   font-size: 2.2rem;
+   font-weight: 700;
+   color: #2c3e50;
+   position: relative;
+   display: inline-block;
+   padding-bottom: 15px;
+}
+
+.section-title h2::after {
+   content: '';
+   position: absolute;
+   bottom: 0;
+   left: 50%;
+   transform: translateX(-50%);
+   width: 80px;
+   height: 3px;
+   background: linear-gradient(90deg, #f39c12 0%, #e67e22 100%);
+   border-radius: 2px;
+}
+
+.section-subtitle {
+   text-align: center;
+   font-size: 1.1rem;
+   color: #7f8c8d;
+   margin-bottom: 40px;
+   font-style: italic;
+}
+
+/* Tarjetas de informaci�n */
+.info-cards {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+   gap: 30px;
+   margin: 40px 0;
+}
+
+.info-card {
+   background: white;
+   border-radius: 12px;
+   padding: 30px 25px;
+   box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+   transition: all 0.3s ease;
+   text-align: center;
+}
+
+.info-card:hover {
+   transform: translateY(-8px);
+   box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.info-card .icon-wrapper {
+   width: 100%;
+   height: 200px;
+   margin: 0 auto 20px;
+   border-radius: 10px;
+   overflow: hidden;
+}
+
+.info-card .icon-wrapper img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   transition: transform 0.3s ease;
+}
+
+.info-card:hover .icon-wrapper img {
+   transform: scale(1.1);
+}
+
+.info-card h3 {
+   color: #2c3e50;
+   font-size: 1.4rem;
+   margin-bottom: 15px;
+   font-weight: 700;
+}
+
+.info-card p {
+   color: #555;
+   line-height: 1.7;
+   font-size: 0.95rem;
+}
+
+/* Grid de torres */
+.torres-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+   gap: 25px;
+   margin: 40px 0;
+}
+
+.torre-card {
+   background: white;
+   border-radius: 12px;
+   padding: 25px 20px;
+   box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+   transition: all 0.3s ease;
+   border-top: 4px solid #3498db;
+}
+
+.torre-card:hover {
+   transform: translateY(-5px);
+   box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+   border-top-color: #f39c12;
+}
+
+.torre-card .icon-wrapper {
+   width: 100%;
+   height: 180px;
+   margin-bottom: 15px;
+   border-radius: 8px;
+   overflow: hidden;
+}
+
+.torre-card .icon-wrapper img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+}
+
+.torre-card h4 {
+   color: #2c3e50;
+   font-size: 1.2rem;
+   margin-bottom: 10px;
+   font-weight: 700;
+}
+
+.torre-card .fecha {
+   display: inline-block;
+   background: #3498db;
+   color: white;
+   padding: 5px 12px;
+   border-radius: 20px;
+   font-size: 0.85rem;
+   font-weight: 600;
+   margin-bottom: 12px;
+}
+
+.torre-card p {
+   color: #666;
+   line-height: 1.6;
+   font-size: 0.95rem;
+}
+
+/* Secci�n de contenido principal */
+.content-section {
+   padding: 80px 0;
+   background: #f8f9fa;
+}
+
+/* Texto introductorio */
+.intro-text {
+   background: white;
+   border-radius: 15px;
+   padding: 50px;
+   margin-bottom: 60px;
+   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.intro-text p {
+   font-size: 1.15rem;
+   color: #555;
+   line-height: 1.9;
+   margin-bottom: 20px;
+}
+
+/* Secci�n de historia */
+.historia-section {
+   background: white;
+   border-radius: 15px;
+   padding: 60px;
+   margin: 80px 0;
+   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.historia-section h2 {
+   color: #2c3e50;
+   font-size: 2.2rem;
+   margin-bottom: 40px;
+   text-align: center;
+   font-weight: 700;
+}
+
+.periodo-historico {
+   margin-bottom: 40px;
+}
+
+.periodo-historico h3 {
+   color: #f39c12;
+   font-size: 1.5rem;
+   margin-bottom: 20px;
+   font-weight: 600;
+}
+
+.periodo-historico h3 i {
+   margin-right: 10px;
+   font-size: 0.8em;
+}
+
+.periodo-historico p {
+   color: #555;
+   line-height: 1.9;
+   text-align: justify;
+   font-size: 1.05rem;
+}
+
+/* Responsive para conoce-teruel */
+@media (max-width: 768px) {
+   .info-cards {
+      grid-template-columns: 1fr;
+   }
+   
+   .torres-grid {
+      grid-template-columns: 1fr;
+   }
+   
+   .section-title h2 {
+      font-size: 1.8rem;
+   }
+   
+   .highlight-section {
+      padding: 20px;
+   }
+}
+
+/* ============================================
+   APARTIR DE AQUI LIMPIA BOTONES MODULARES
+   ============================================
+   
+   USO:
+   Combina las clases base con estilos inline para crear cualquier botón:
+   
+   EJEMPLOS:
+   1. Botón rectangular con borde blanco:
+      <a href="#" class="btn-base btn-rectangular btn-borde" 
+         style="color: white; border-color: white;">Texto</a>
+   
+   2. Botón redondo relleno azul:
+      <a href="#" class="btn-base btn-redondo btn-relleno" 
+         style="background: #3498db; color: white;">Texto</a>
+   
+   3. Botón pequeño con gradiente:
+      <a href="#" class="btn-base btn-pequeño btn-relleno btn-hover-elevar" 
+         style="background: linear-gradient(45deg, #f39c12, #e67e22); color: white;">Texto</a>
+   
+   ============================================ */
+
+/* Botón base - SIEMPRE OBLIGATORIA */
+.btn-base {
+   padding: 15px 40px;
+   font-weight: 600;
+   text-decoration: none;
+   transition: all 0.3s ease;
+   display: inline-block;
+   cursor: pointer;
+   border: none;
+   font-size: 16px;
+}
+
+/* FORMA */
+.btn-rectangular {
+   border-radius: 4px;
+}
+
+.btn-redondo {
+   border-radius: 50px;
+}
+
+/* ESTILO */
+.btn-borde {
+   background: transparent;
+   border: 2px solid;
+}
+
+.btn-borde.btn-hover-invertir {
+   transition: all 0.3s ease;
+}
+
+.btn-borde.btn-hover-invertir:hover {
+   background: var(--btn-color) !important;
+   color: var(--btn-hover-text-color) !important;
+}
+
+.btn-relleno {
+   border: none;
+}
+
+/* TAMAÑO */
+.btn-pequeño {
+   padding: 10px 20px;
+   font-size: 14px;
+}
+
+.btn-mediano {
+   padding: 15px 40px;
+   font-size: 16px;
+}
+
+.btn-grande {
+   padding: 18px 50px;
+   font-size: 18px;
+}
+
+/* EFECTOS HOVER */
+.btn-hover-elevar:hover {
+   transform: translateY(-3px);
+   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.btn-hover-agrandar:hover {
+   transform: scale(1.05);
+}
+
+.btn-hover-invertir:hover {
+   background: currentColor !important;
+   color: white !important;
+}
+
+/* ============================================
+   SERVICES SECTION
+   ============================================ */
+.services-section {
+   padding: 80px 0;
+   background: #f8f9fa;
+}
+
+.service-intro-text {
+   display: block;
+   font-size: 1.1rem;
+   font-weight: 500;
+   margin-bottom: 10px;
+}
+
+.service-card {
+   background: white;
+   border-radius: 15px;
+   padding: 40px 30px;
+   text-align: center;
+   transition: all 0.3s ease;
+   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+   margin-bottom: 30px;
+}
+
+.service-card:hover {
+   transform: translateY(-10px);
+   box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.service-icon {
+   width: 80px;
+   height: 80px;
+   background: linear-gradient(45deg, #3498db, #2980b9);
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin: 0 auto 20px;
+   color: white;
+   font-size: 30px;
+}
+
+/* ============================================
+   CTA SECTION
+   ============================================ */
+.cta-section {
+   background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+   padding: 80px 0;
+   color: white;
+   text-align: center;
+}
+
+.cta-title {
+   font-size: 2.2rem;
+   margin-bottom: 20px;
+   font-weight: 700;
+}
+
+.cta-text {
+   font-size: 1.15rem;
+   margin-bottom: 30px;
+   opacity: 0.95;
+}
+
+/* ============================================
+   DESTINATIONS SECTION
+   ============================================ */
+.destinations-section {
+   padding: 20px 0;
+   background: linear-gradient(rgba(68, 70, 74, 0.85), rgba(68, 70, 74, 0.85)), url('../images/fondo-seccion-descubrir.png');
+   background-size: 100%;
+   background-position: left;
+   background-repeat: no-repeat;
+}
+
+.destinations-section .section-title {
+   margin-top: 40px;
+   margin-bottom: 60px;
+}
+
+.destination-card {
+   background: white;
+   border-radius: 4px;
+   overflow: hidden;
+   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+   transition: all 0.3s ease;
+   margin-bottom: 30px;
+}
+
+.destination-card:hover {
+   transform: translateY(-5px);
+}
+
+.destination-image {
+   height: 200px;
+   background: linear-gradient(45deg, #e74c3c, #c0392b);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   color: white;
+   font-size: 16px;
+}
+
+.destination-content {
+   padding: 25px;
+}
+
+/* ============================================
+   FOOTER SECTION
+   ============================================ */
+.footer-section {
+   background: #2c3e50;
+   color: white;
+   padding: 50px 0 20px;
+}
+
+.footer-info h5 {
+   color: #f39c12;
+   margin-bottom: 20px;
+}
+
+.footer-info ul {
+   list-style: none;
+   padding: 0;
+}
+
+.footer-info ul li a {
+   color: white;
+   text-decoration: none;
+   transition: color 0.3s ease;
+}
+
+.footer-info ul li a:hover {
+   color: #f39c12;
+}
+
+.footer-hr {
+   margin: 40px 0 20px;
+   border-color: rgba(255,255,255,0.2);
+}
+
+.social-links a {
+   color: white;
+   font-size: 20px;
+   margin-right: 15px;
+   transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+   color: #f39c12;
+}
+
+/* ============================================
+   USER PROFILE BUTTON
+   ============================================ */
+.user-profile-btn {
+   background: rgba(255,255,255,0.15);
+   color: white !important;
+   border: 2px solid rgba(255,255,255,0.3);
+   padding: 10px 25px;
+   border-radius: 4px;
+   margin-left: 30px;
+   transition: all 0.3s ease;
+   font-weight: 500;
+   text-decoration: none !important;
+   display: flex;
+   align-items: center;
+   white-space: nowrap;
+   backdrop-filter: blur(10px);
+   text-transform: uppercase;
+   letter-spacing: 0.5px;
+   font-size: 14px;
+}
+
+.user-profile-btn:hover {
+   background: rgba(255,255,255,0.25);
+   border-color: rgba(255,255,255,0.5);
+   color: white !important;
+}
+
+.user-profile-btn i {
+   margin-right: 8px;
+}
+
+/* ============================================
+   SCROLL INDICATOR
+   ============================================ */
+.scroll-indicator {
+   position: absolute;
+   bottom: 30px;
+   left: 50%;
+   transform: translateX(-50%);
+   color: white;
+   cursor: pointer;
+   text-align: center;
+   transition: all 0.3s ease;
+}
+
+.scroll-indicator:hover {
+   transform: translateX(-50%) translateY(-10px);
+}
+
+.scroll-text {
+   font-size: 14px;
+   font-weight: 500;
+   letter-spacing: 2px;
+   text-transform: uppercase;
+}
+
+.scroll-arrow {
+   width: 2px;
+   height: 40px;
+   background: white;
+   margin: 0 auto;
+   position: relative;
+}
+
+.scroll-arrow::after {
+   content: '';
+   position: absolute;
+   bottom: 0;
+   left: 50%;
+   transform: translateX(-50%);
+   width: 0;
+   height: 0;
+   border-left: 6px solid transparent;
+   border-right: 6px solid transparent;
+   border-top: 8px solid white;
+}
+
+.scroll-arrow::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 50%;
+   transform: translateX(-50%);
+   width: 8px;
+   height: 8px;
+   background: white;
+   border-radius: 50%;
+   animation: scrollPulse 2s infinite;
+}
+
+@keyframes scrollPulse {
+   0% { transform: translateX(-50%) translateY(0); opacity: 1; }
+   50% { transform: translateX(-50%) translateY(15px); opacity: 0.7; }
+   100% { transform: translateX(-50%) translateY(30px); opacity: 0; }
+}
+
+/* ============================================
+   ORGANIZA TU VIAJE - CONTENT SECTION
+   ============================================ */
+
+/* Hero específico para Organiza tu Viaje */
+.hero-organiza-viaje {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    padding: 100px 0;
+    overflow: hidden;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/FondoOrganizaViaje.webp');
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+}
+
+.hero-organiza-viaje .container {
+    position: relative;
+    z-index: 2;
+}
+
+.titulo-hero {
+    color: white;
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.subtitulo-hero {
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.btn-blanco {
+    color: white;
+    border-color: white;
+}
+
+.btn-blanco:hover {
+    background-color: white;
+    color: #000;
+}
+
+/* Intro text para Organiza */
+.intro-organiza {
+   text-align: center;
+}
+
+.intro-organiza h3 {
+   color: #2c3e50;
+   font-size: 2rem;
+   margin-bottom: 25px;
+   font-weight: 700;
+}
+
+/* Valores Grid */
+.valores-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+   gap: 30px;
+   margin-bottom: 80px;
+}
+
+.valor-card {
+   background: white;
+   border-radius: 15px;
+   padding: 40px 25px;
+   text-align: center;
+   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+   transition: all 0.3s ease;
+}
+
+.valor-card:hover {
+   transform: translateY(-10px);
+   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.valor-card .icon-wrapper {
+   width: 80px;
+   height: 80px;
+   margin: 0 auto 20px;
+   background: linear-gradient(45deg, #3498db, #2980b9);
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 35px;
+   color: white;
+}
+
+.valor-card h4 {
+   color: #2c3e50;
+   font-size: 1.3rem;
+   margin-bottom: 15px;
+   font-weight: 600;
+}
+
+.valor-card p {
+   color: #7f8c8d;
+   font-size: 0.95rem;
+   line-height: 1.7;
+}
+
+/* Visitas Guiadas Grid */
+.visitas-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+   gap: 35px;
+   margin-bottom: 80px;
+}
+
+.visita-card {
+   background: white;
+   border-radius: 15px;
+   overflow: hidden;
+   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+   transition: all 0.3s ease;
+}
+
+.visita-card:hover {
+   transform: translateY(-10px);
+   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.visita-card .image-wrapper {
+   width: 100%;
+   height: 250px;
+   overflow: hidden;
+   position: relative;
+}
+
+.visita-card .image-wrapper img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   transition: transform 0.3s ease;
+}
+
+.visita-card:hover .image-wrapper img {
+   transform: scale(1.1);
+}
+
+.visita-card .badge {
+   position: absolute;
+   top: 20px;
+   right: 20px;
+   background: #f39c12;
+   color: white;
+   padding: 8px 20px;
+   border-radius: 25px;
+   font-weight: 600;
+   font-size: 0.85rem;
+}
+
+.visita-card .content {
+   padding: 30px;
+}
+
+.visita-card h3 {
+   color: #2c3e50;
+   font-size: 1.5rem;
+   margin-bottom: 15px;
+   font-weight: 600;
+}
+
+.visita-card .duration {
+   color: #f39c12;
+   font-weight: 600;
+   margin-bottom: 15px;
+   display: flex;
+   align-items: center;
+   gap: 8px;
+}
+
+.visita-card p {
+   color: #7f8c8d;
+   line-height: 1.8;
+   margin-bottom: 20px;
+}
+
+.visita-card .features {
+   list-style: none;
+   padding: 0;
+   margin-bottom: 25px;
+}
+
+.visita-card .features li {
+   color: #555;
+   margin-bottom: 10px;
+   padding-left: 25px;
+   position: relative;
+}
+
+.visita-card .features li:before {
+   content: "✓";
+   position: absolute;
+   left: 0;
+   color: #3498db;
+   font-weight: bold;
+}
+
+/* Opiniones Section */
+.opiniones-section {
+   background: white;
+   padding: 80px 0;
+}
+
+.opiniones-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+   gap: 30px;
+   margin-top: 50px;
+}
+
+.opinion-card {
+   background: #f8f9fa;
+   border-radius: 15px;
+   padding: 35px;
+   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+   transition: all 0.3s ease;
+   position: relative;
+}
+
+.opinion-card:hover {
+   transform: translateY(-5px);
+   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.opinion-card .stars {
+   color: #f39c12;
+   font-size: 1.2rem;
+   margin-bottom: 20px;
+}
+
+.opinion-card .quote-icon {
+   position: absolute;
+   top: 20px;
+   right: 30px;
+   font-size: 3rem;
+   color: rgba(243, 156, 18, 0.15);
+}
+
+.opinion-card p {
+   color: #555;
+   font-style: italic;
+   line-height: 1.8;
+   margin-bottom: 25px;
+}
+
+.opinion-card .author {
+   display: flex;
+   align-items: center;
+   gap: 15px;
+   margin-top: 20px;
+   padding-top: 20px;
+   border-top: 2px solid rgba(0, 0, 0, 0.05);
+}
+
+.opinion-card .author-avatar {
+   width: 50px;
+   height: 50px;
+   border-radius: 50%;
+   background: linear-gradient(45deg, #3498db, #2980b9);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   color: white;
+   font-weight: 600;
+   font-size: 1.2rem;
+}
+
+.opinion-card .author-info h5 {
+   color: #2c3e50;
+   font-size: 1rem;
+   font-weight: 600;
+   margin-bottom: 5px;
+}
+
+.opinion-card .author-info span {
+   color: #7f8c8d;
+   font-size: 0.85rem;
+}
+
+/* ============================================
+   RESPONSIVE STYLES
+   ============================================ */
+@media (max-width: 992px) {
+   .torres-grid {
+      grid-template-columns: repeat(2, 1fr);
+   }
+}
+
+@media (max-width: 768px) {
+   .hero-title {
+      font-size: 2.5rem;
+   }
+   
+   .hero-section {
+      padding: 100px 0;
+   }
+   
+   .intro-text, 
+   .historia-section, 
+   .highlight-section {
+      padding: 30px 20px;
+   }
+   
+   .section-title h2 {
+      font-size: 2rem;
+   }
+   
+   .navbar-nav .nav-link {
+      margin: 0 5px;
+      font-size: 12px;
+   }
+   
+   .navbar-brand {
+      font-size: 20px;
+   }
+   
+   .visitas-grid {
+      grid-template-columns: 1fr;
+   }
+}
+
+/* ============================================
+   BOTONES CON CLASES PREDEFINIDAS
+   ============================================ */
+
+/* Botón blanco para hero sections */
+.btn-blanco {
+   color: white !important;
+   border-color: white !important;
+   --btn-color: white;
+   --btn-hover-text-color: black;
+}
+
+/* Botón azul para secciones con fondo claro */
+.btn-azul {
+   color: #3498db !important;
+   border-color: #3498db !important;
+   --btn-color: #3498db;
+   --btn-hover-text-color: white;
+}
+
+/* ============================================
+   IMÁGENES DE DESTINOS
+   ============================================ */
+
+/* Hero de index.html */
+.seccion-hero {
+   background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../images/banner-bg.png');
+   background-size: cover;
+   background-position: center;
+}
+
+/* Hero de conoce-teruel.html */
+.hero-conoce-teruel {
+   background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../images/conoce-teruel.png') !important;
+   background-size: cover !important;
+   background-position: center !important;
+}
+
+/* Imágenes de destinos en cards */
+.imagen-destino-torico {
+   background-image: url('../images/Fuente_del_Torico.png');
+}
+
+.imagen-destino-dinopolis {
+   background-image: url('../images/Dinopolis.png');
+}
+
+.imagen-destino-albarracin {
+   background-image: url('../images/Albarracin.png');
+}
+
+.avatar-destino {
+   background: black !important;
+}
+
+/* ============================================
+   CTA TÍTULOS
+   ============================================ */
+.titulo-cta {
+   color: white !important;
+}
+
+/* ============================================
+   DESTINATIONS SECTION MEJORAS
+   ============================================ */
+.destinations-section {
+   background: #f5f5f0;
+   margin-bottom: 100px;
+}
+
+/* Torre card wide para ocupar todo el ancho */
+.torres-grid .torre-wide {
+   grid-column: span 3;
+}
+
+@media (max-width: 992px) {
+   .torres-grid .torre-wide {
+      grid-column: span 2;
+   }
+}
+
+@media (max-width: 768px) {
+   .torres-grid .torre-wide {
+      grid-column: span 1;
+   }
+}
+
+/* ============================================
+   QUÉ HACER - ESTILOS ESPECÍFICOS
+   ============================================ */
+
+/* Hero de que-hacer.html */
+.hero-que-hacer {
+   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/Escalinata-Teruel.jpg') center/cover;
+   min-height: 60vh;
+}
+
+/* Tarjetas de actividades */
+.activity-card {
+   background: white;
+   padding: 30px;
+   border-radius: 10px;
+   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+   transition: transform 0.3s ease, box-shadow 0.3s ease;
+   height: 100%;
+}
+
+.activity-card:hover {
+   transform: translateY(-5px);
+   box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.activity-icon {
+   font-size: 48px;
+   color: #D35400;
+   margin-bottom: 20px;
+}
+
+.activity-card h3 {
+   color: #2C3E50;
+   margin-bottom: 15px;
+   font-size: 24px;
+   font-weight: 600;
+}
+
+.activity-card p {
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+/* Tarjetas con imagen de fondo */
+.activity-card[class*="--bg-"] {
+    position: relative;
+    color: white;
+    background-color: #000; /* fallback */
+    overflow: hidden;
+    padding: 40px 30px;
+    background-size: cover;
+    background-position: center;
+}
+
+.activity-card[class*="--bg-"]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.25));
+    z-index: 0;
+}
+
+.activity-card[class*="--bg-"] > * {
+    position: relative;
+    z-index: 1;
+}
+
+.activity-card[class*="--bg-"] .activity-icon {
+    color: rgba(255,255,255,0.9);
+}
+
+.activity-card[class*="--bg-"] h3 {
+    color: #fff;
+}
+
+.activity-card[class*="--bg-"] p,
+.activity-card[class*="--bg-"] .activity-details li {
+    color: rgba(255,255,255,0.95);
+}
+
+.activity-card[class*="--bg-"] .btn-base {
+    color: white !important;
+    border-color: rgba(255,255,255,0.85) !important;
+}
+
+/* Imágenes específicas para cada tarjeta */
+.activity-card--bg-mudejar {
+    background-image: url('../images/Teruel-mudejar-7.jpg');
+}
+
+.activity-card--bg-amantes {
+    background-image: url('../images/Los amantes de teruel.jpg');
+}
+
+.activity-card--bg-museo {
+    background-image: url('../images/Patrimonio cultural.jpeg');
+}
+
+.activity-card--bg-dinopolis {
+    background-image: url('../images/Dinopolis.png');
+}
+
+.activity-card--bg-albarracin {
+    background-image: url('../images/Albarracin.png');
+}
+
+.activity-card--bg-rodeno {
+    background-image: url('../images/Pinares-de-Rodeno.jpg');
+}
+
+.activity-card--bg-pitarque {
+    background-image: url('../images/Senderismo.jpg');
+}
+
+.activity-card--bg-aves {
+    background-image: url('../images/teruelPueblo.jpeg');
+}
+
+.activity-card--bg-jamon {
+    background-image: url('../images/Gatronomia.jpg');
+}
+
+.activity-card--bg-trufa {
+    background-image: url('../images/TrufaS-NegraS-Recetas.jpg');
+}
+
+.activity-card--bg-cocina {
+    background-image: url('../images/Trenza.jpg');
+}
+
+.activity-card--bg-bodegas {
+    background-image: url('../images/Bodega.jpg');
+}.activity-details {
+   list-style: none;
+   padding: 0;
+   margin: 20px 0;
+}
+
+.activity-details li {
+   padding: 8px 0;
+   border-bottom: 1px solid #eee;
+   color: #666;
+}
+
+.activity-details li:last-child {
+   border-bottom: none;
+}
+
+/* Tarjetas de consejos */
+.tip-card {
+   background: #F8F9FA;
+   padding: 25px;
+   border-radius: 8px;
+   border-left: 4px solid #D35400;
+   height: 100%;
+}
+
+.tip-card h4 {
+   color: #2C3E50;
+   margin-bottom: 15px;
+   font-size: 18px;
+}
+
+.tip-card i {
+   color: #D35400;
+   margin-right: 8px;
+}
+
+/* Sección CTA */
+.cta-section {
+   background: linear-gradient(135deg, #D35400, #E67E22);
+   padding: 60px 40px;
+   border-radius: 15px;
+   color: white;
+}
+
+.cta-section h2 {
+   font-size: 36px;
+   margin-bottom: 20px;
+   font-weight: 700;
+}
+
+.cta-section p {
+   font-size: 18px;
+   margin-bottom: 30px;
+}
+
+/* ============================================
+   ORGANIZA TU VIAJE - ESTILOS ESPECÍFICOS
+   ============================================ */
+
+/* Hero de organiza-viaje.html */
+.hero-organiza-viaje {
+   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/albarracin-vista.jpg') center/cover;
+   min-height: 60vh;
+}
+
+/* Catálogo de viajes */
+.viajes-catalogo {
+   margin-top: 50px;
+}
+
+.viaje-item {
+   background: white;
+   border-radius: 12px;
+   box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+   margin-bottom: 20px;
+   overflow: hidden;
+   transition: all 0.3s ease;
+   min-height: 120px;
+}
+
+.viaje-item:hover {
+   box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+}
+
+/* Imagen del viaje (opcional) */
+.viaje-imagen {
+   width: 180px;
+   height: 120px;
+   object-fit: cover;
+   flex-shrink: 0;
+}
+
+.viaje-header {
+   display: flex;
+   justify-content: space-between;
+   align-items: stretch;
+   padding: 0;
+   cursor: pointer;
+   transition: background-color 0.3s ease;
+   min-height: 120px;
+}
+
+.viaje-header-content {
+   display: flex;
+   align-items: center;
+   padding: 25px 30px;
+   flex: 1;
+}
+
+.viaje-header:hover .viaje-header-content {
+   background-color: #f8f9fa;
+}
+
+.viaje-info-principal {
+   display: flex;
+   align-items: center;
+   flex: 1;
+}
+
+.viaje-icono {
+   width: 70px;
+   height: 70px;
+   background: linear-gradient(135deg, #D35400, #E67E22);
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-right: 20px;
+   flex-shrink: 0;
+}
+
+.viaje-icono i {
+   font-size: 32px;
+   color: white;
+}
+
+.viaje-titulo-seccion h3 {
+   color: #2C3E50;
+   font-size: 22px;
+   font-weight: 600;
+   margin-bottom: 5px;
+}
+
+.viaje-subtitulo {
+   color: #7f8c8d;
+   font-size: 14px;
+   margin: 0;
+}
+
+.viaje-precio-seccion {
+   display: flex;
+   flex-direction: column;
+   align-items: flex-end;
+   margin-right: 20px;
+}
+
+.viaje-precio {
+   font-size: 32px;
+   font-weight: 700;
+   color: #D35400;
+   line-height: 1;
+}
+
+.viaje-por-persona {
+   font-size: 12px;
+   color: #7f8c8d;
+   margin-top: 5px;
+}
+
+.toggle-icon {
+   font-size: 20px;
+   color: #D35400;
+   transition: transform 0.3s ease;
+   margin-left: 20px;
+}
+
+/* Detalles expandibles del viaje */
+.viaje-detalles {
+   max-height: 0;
+   overflow: hidden;
+   transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+   padding: 0 30px;
+}
+
+.viaje-detalles.active {
+   max-height: 2000px;
+   padding: 30px;
+   border-top: 1px solid #e0e0e0;
+   background-color: #fafafa;
+}
+
+.viaje-descripcion {
+   font-size: 16px;
+   line-height: 1.8;
+   color: #555;
+   margin-bottom: 25px;
+}
+
+.viaje-caracteristicas {
+   margin-bottom: 25px;
+}
+
+.viaje-caracteristicas h4 {
+   color: #2C3E50;
+   font-size: 18px;
+   font-weight: 600;
+   margin-bottom: 15px;
+}
+
+.viaje-caracteristicas h4 i {
+   color: #D35400;
+   margin-right: 10px;
+}
+
+.viaje-caracteristicas ul {
+   list-style: none;
+   padding: 0;
+}
+
+.viaje-caracteristicas li {
+   padding: 8px 0;
+   padding-left: 25px;
+   position: relative;
+   color: #555;
+   line-height: 1.6;
+}
+
+.viaje-caracteristicas li:before {
+   content: "\f00c";
+   font-family: FontAwesome;
+   position: absolute;
+   left: 0;
+   color: #27ae60;
+   font-size: 14px;
+}
+
+/* Estadísticas del viaje */
+.viaje-stats {
+   display: flex;
+   gap: 30px;
+   flex-wrap: wrap;
+   margin-top: 20px;
+}
+
+.stat-item {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+}
+
+.stat-item i {
+   color: #D35400;
+   font-size: 18px;
+}
+
+.stat-item span {
+   color: #555;
+   font-size: 14px;
+}
+
+/* Valoración */
+.viaje-valoracion {
+   background: white;
+   padding: 25px;
+   border-radius: 10px;
+   text-align: center;
+   margin-bottom: 20px;
+   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.valoracion-estrellas {
+   margin-bottom: 10px;
+}
+
+.valoracion-estrellas i {
+   color: #f39c12;
+   font-size: 20px;
+   margin: 0 2px;
+}
+
+.valoracion-numero {
+   font-size: 28px;
+   font-weight: 700;
+   color: #2C3E50;
+   margin: 10px 0 5px;
+}
+
+.valoracion-opiniones {
+   color: #7f8c8d;
+   font-size: 14px;
+   margin: 0;
+}
+
+/* Botón de pago */
+.btn-pago {
+   width: 100%;
+   padding: 15px 30px;
+   background: linear-gradient(135deg, #27ae60, #2ecc71);
+   color: white;
+   border: none;
+   border-radius: 8px;
+   font-size: 18px;
+   font-weight: 600;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 10px;
+}
+
+.btn-pago:hover {
+   background: linear-gradient(135deg, #229954, #27ae60);
+   transform: translateY(-2px);
+   box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
+}
+
+.btn-pago i {
+   font-size: 20px;
+}
+
+/* Sección de Valoraciones Completa */
+.seccion-valoraciones-completa {
+   margin-top: 30px;
+   padding: 25px;
+   background: #f8f9fa;
+   border-radius: 10px;
+   border: 1px solid #e0e0e0;
+}
+
+.seccion-valoraciones-completa h4 {
+   color: #2C3E50;
+   font-size: 20px;
+   font-weight: 600;
+   margin-bottom: 20px;
+   padding-bottom: 10px;
+   border-bottom: 2px solid #D35400;
+}
+
+.seccion-valoraciones-completa h4 i {
+   color: #D35400;
+   margin-right: 10px;
+}
+
+/* Lista de valoraciones */
+.lista-valoraciones {
+   max-height: 400px;
+   overflow-y: auto;
+   margin-bottom: 25px;
+   padding-right: 10px;
+}
+
+.lista-valoraciones::-webkit-scrollbar {
+   width: 8px;
+}
+
+.lista-valoraciones::-webkit-scrollbar-track {
+   background: #f1f1f1;
+   border-radius: 10px;
+}
+
+.lista-valoraciones::-webkit-scrollbar-thumb {
+   background: #D35400;
+   border-radius: 10px;
+}
+
+.lista-valoraciones::-webkit-scrollbar-thumb:hover {
+   background: #E67E22;
+}
+
+/* Valoración individual */
+.valoracion-individual {
+   background: white;
+   padding: 15px;
+   border-radius: 8px;
+   margin-bottom: 15px;
+   box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+   transition: transform 0.2s ease;
+}
+
+.valoracion-individual:hover {
+   transform: translateX(5px);
+}
+
+.valoracion-header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-bottom: 8px;
+}
+
+.valoracion-usuario {
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   color: #2C3E50;
+}
+
+.valoracion-usuario i {
+   font-size: 24px;
+   color: #7f8c8d;
+}
+
+.valoracion-estrellas-small {
+   display: flex;
+   gap: 2px;
+}
+
+.valoracion-estrellas-small i {
+   color: #f39c12;
+   font-size: 14px;
+}
+
+.valoracion-fecha {
+   font-size: 12px;
+   color: #95a5a6;
+   margin-bottom: 10px;
+}
+
+.valoracion-comentario {
+   color: #555;
+   font-size: 14px;
+   line-height: 1.6;
+   margin: 0;
+}
+
+/* Formulario de valoración */
+.formulario-valoracion {
+   background: white;
+   padding: 20px;
+   border-radius: 8px;
+   border: 2px solid #D35400;
+}
+
+.formulario-valoracion h5 {
+   color: #2C3E50;
+   font-size: 16px;
+   font-weight: 600;
+   margin-bottom: 15px;
+}
+
+.formulario-valoracion .form-group {
+   margin-bottom: 15px;
+}
+
+.formulario-valoracion label {
+   display: block;
+   color: #2C3E50;
+   font-weight: 500;
+   margin-bottom: 8px;
+   font-size: 14px;
+}
+
+.formulario-valoracion .form-control {
+   width: 100%;
+   padding: 10px;
+   border: 1px solid #ddd;
+   border-radius: 5px;
+   font-size: 14px;
+   transition: border-color 0.3s ease;
+}
+
+.formulario-valoracion .form-control:focus {
+   outline: none;
+   border-color: #D35400;
+}
+
+.formulario-valoracion textarea.form-control {
+   resize: vertical;
+   min-height: 80px;
+}
+
+/* Selector de estrellas */
+.selector-estrellas {
+   display: flex;
+   gap: 5px;
+   margin-top: 5px;
+}
+
+.estrella-seleccionable {
+   font-size: 24px;
+   color: #ddd;
+   cursor: pointer;
+   transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.estrella-seleccionable:hover {
+   color: #f39c12;
+   transform: scale(1.2);
+}
+
+.estrella-seleccionable.selected {
+   color: #f39c12;
+}
+
+/* Botón enviar valoración */
+.btn-enviar-valoracion {
+   width: 100%;
+   padding: 12px 20px;
+   background: linear-gradient(135deg, #D35400, #E67E22);
+   color: white;
+   border: none;
+   border-radius: 6px;
+   font-size: 16px;
+   font-weight: 600;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 8px;
+}
+
+.btn-enviar-valoracion:hover {
+   background: linear-gradient(135deg, #C0450C, #D35400);
+   transform: translateY(-2px);
+   box-shadow: 0 5px 15px rgba(211, 84, 0, 0.3);
+}
+
+.btn-enviar-valoracion i {
+   font-size: 16px;
+}
+
+/* Mensaje de login requerido */
+.mensaje-login-requerido {
+   background: white;
+   padding: 40px 20px;
+   border-radius: 8px;
+   border: 2px solid #D35400;
+   text-align: center;
+}
+
+.mensaje-login-requerido i {
+   font-size: 48px;
+   color: #D35400;
+   margin-bottom: 15px;
+}
+
+.mensaje-login-requerido p {
+   color: #2C3E50;
+   font-size: 16px;
+   margin-bottom: 20px;
+   font-weight: 500;
+}
+
+.btn-ir-login {
+   display: inline-flex;
+   align-items: center;
+   gap: 8px;
+   padding: 12px 30px;
+   background: linear-gradient(135deg, #D35400, #A84300);
+   color: white !important;
+   text-decoration: none;
+   border-radius: 6px;
+   font-size: 16px;
+   font-weight: 600;
+   transition: all 0.3s ease;
+}
+
+.btn-ir-login:hover {
+   background: linear-gradient(135deg, #E67E22, #D35400);
+   transform: translateY(-2px);
+   box-shadow: 0 5px 15px rgba(211, 84, 0, 0.3);
+}
+
+.btn-ir-login i {
+   font-size: 16px;
+   color: white !important;
+   display: inline-flex;
+   align-items: center;
+}
+
+/* Información adicional */
+.info-adicional {
+   margin-top: 60px;
+   padding-top: 40px;
+   border-top: 2px solid #e0e0e0;
+}
+
+.info-box {
+   text-align: center;
+   padding: 30px 20px;
+   background: white;
+   border-radius: 10px;
+   box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+   transition: transform 0.3s ease;
+   height: 100%;
+}
+
+.info-box:hover {
+   transform: translateY(-5px);
+}
+
+.info-box i {
+   font-size: 40px;
+   color: #D35400;
+   margin-bottom: 15px;
+}
+
+.info-box h4 {
+   color: #2C3E50;
+   font-size: 18px;
+   font-weight: 600;
+   margin-bottom: 10px;
+}
+
+.info-box p {
+   color: #7f8c8d;
+   font-size: 14px;
+   margin: 0;
+   line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+   .viaje-imagen {
+      width: 100%;
+      height: 200px;
+   }
+   
+   .viaje-header {
+      flex-direction: column;
+      min-height: auto;
+   }
+   
+   .viaje-header-content {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+      padding: 20px;
+   }
+   
+   .viaje-precio-seccion {
+      align-items: flex-start;
+      margin-right: 0;
+   }
+   
+   .toggle-icon {
+      position: absolute;
+      right: 30px;
+      top: 30px;
+   }
+   
+   .viaje-stats {
+      flex-direction: column;
+      gap: 15px;
+   }
+   
+   .viaje-detalles.active {
+      padding: 20px 15px;
+   }
+}
+
+/* ============================================
+   9. PERFIL DE USUARIO - VISTA LOGUEADA
+   ============================================ */
+
+.contenedor-perfil-usuario {
+   max-width: 1200px;
+   margin: 0 auto;
+   animation: fadeIn 0.5s ease;
+}
+
+.contenedor-perfil-usuario.oculto {
+   display: none;
+}
+
+/* Cabecera del Perfil */
+.cabecera-perfil {
+   background: rgba(255, 255, 255, 0.05);
+   backdrop-filter: blur(10px);
+   border-radius: 12px;
+   padding: 30px;
+   margin-bottom: 30px;
+   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+   border: 1px solid rgba(255, 255, 255, 0.1);
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   flex-wrap: wrap;
+   gap: 20px;
+}
+
+.info-usuario-principal {
+   display: flex;
+   align-items: center;
+   gap: 20px;
+}
+
+.avatar-usuario {
+   width: 100px;
+   height: 100px;
+   border-radius: 50%;
+   background: linear-gradient(135deg, #3498db, #2980b9);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 3.5rem;
+   color: white;
+   box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+}
+
+.datos-usuario h2 {
+   color: #ffffff;
+   font-size: 1.8rem;
+   margin: 0 0 5px 0;
+   font-weight: 600;
+}
+
+.datos-usuario p {
+   color: rgba(255, 255, 255, 0.7);
+   margin: 3px 0;
+   font-size: 0.95rem;
+}
+
+.fecha-registro {
+   color: rgba(255, 255, 255, 0.5);
+   font-size: 0.85rem;
+}
+
+.acciones-perfil {
+   display: flex;
+   gap: 10px;
+   flex-wrap: wrap;
+}
+
+.btn-perfil {
+   padding: 10px 20px;
+   border-radius: 6px;
+   font-size: 0.9rem;
+   font-weight: 600;
+   border: none;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   display: flex;
+   align-items: center;
+   gap: 8px;
+}
+
+.btn-editar {
+   background: linear-gradient(135deg, #3498db, #2980b9);
+   color: white;
+}
+
+.btn-editar:hover {
+   background: linear-gradient(135deg, #2980b9, #1f618d);
+   transform: translateY(-2px);
+}
+
+.btn-cerrar-sesion {
+   background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+   color: white;
+}
+
+.btn-cerrar-sesion:hover {
+   background: linear-gradient(135deg, #7f8c8d, #626d6e);
+   transform: translateY(-2px);
+}
+
+.btn-eliminar {
+   background: linear-gradient(135deg, #e74c3c, #c0392b);
+   color: white;
+}
+
+.btn-eliminar:hover {
+   background: linear-gradient(135deg, #c0392b, #a02d20);
+   transform: translateY(-2px);
+}
+
+/* Estadísticas */
+.estadisticas-usuario {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+   gap: 20px;
+   margin-bottom: 30px;
+}
+
+.stat-card {
+   background: rgba(255, 255, 255, 0.05);
+   backdrop-filter: blur(10px);
+   border-radius: 12px;
+   padding: 25px;
+   text-align: center;
+   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+   border: 1px solid rgba(255, 255, 255, 0.1);
+   transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+   transform: translateY(-5px);
+   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.stat-card i {
+   font-size: 2.5rem;
+   color: #3498db;
+   margin-bottom: 15px;
+}
+
+.stat-card h3 {
+   color: #ffffff;
+   font-size: 2.5rem;
+   margin: 10px 0;
+   font-weight: 700;
+}
+
+.stat-card p {
+   color: rgba(255, 255, 255, 0.7);
+   font-size: 0.95rem;
+   margin: 0;
+}
+
+/* Filtro de Actividades */
+.filtro-actividades {
+   background: rgba(255, 255, 255, 0.05);
+   backdrop-filter: blur(10px);
+   border-radius: 12px;
+   padding: 25px;
+   margin-bottom: 30px;
+   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+   border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.filtro-actividades h3 {
+   color: #ffffff;
+   font-size: 1.3rem;
+   margin: 0 0 20px 0;
+   display: flex;
+   align-items: center;
+   gap: 10px;
+}
+
+.grupo-filtros {
+   display: flex;
+   gap: 15px;
+   flex-wrap: wrap;
+   align-items: flex-end;
+}
+
+.input-fecha {
+   flex: 1;
+   min-width: 200px;
+}
+
+.input-fecha label {
+   display: block;
+   color: rgba(255, 255, 255, 0.9);
+   font-size: 0.9rem;
+   margin-bottom: 8px;
+   font-weight: 500;
+}
+
+.input-filtro {
+   width: 100%;
+   padding: 10px 14px;
+   background: rgba(255, 255, 255, 0.08);
+   border: 1px solid rgba(255, 255, 255, 0.2);
+   border-radius: 6px;
+   color: #ffffff;
+   font-size: 0.95rem;
+   transition: all 0.3s ease;
+}
+
+.input-filtro:focus {
+   outline: none;
+   background: rgba(255, 255, 255, 0.12);
+   border-color: rgba(255, 255, 255, 0.4);
+}
+
+.btn-filtrar,
+.btn-limpiar {
+   padding: 10px 20px;
+   border-radius: 6px;
+   font-size: 0.9rem;
+   font-weight: 600;
+   border: none;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   display: flex;
+   align-items: center;
+   gap: 8px;
+}
+
+.btn-filtrar {
+   background: linear-gradient(135deg, #3498db, #2980b9);
+   color: white;
+}
+
+.btn-filtrar:hover {
+   background: linear-gradient(135deg, #2980b9, #1f618d);
+   transform: translateY(-2px);
+}
+
+.btn-limpiar {
+   background: rgba(255, 255, 255, 0.1);
+   color: rgba(255, 255, 255, 0.9);
+   border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-limpiar:hover {
+   background: rgba(255, 255, 255, 0.2);
+}
+
+/* Lista de Valoraciones */
+.mis-valoraciones {
+   background: rgba(255, 255, 255, 0.05);
+   backdrop-filter: blur(10px);
+   border-radius: 12px;
+   padding: 25px;
+   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+   border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mis-valoraciones h3 {
+   color: #ffffff;
+   font-size: 1.3rem;
+   margin: 0 0 20px 0;
+   display: flex;
+   align-items: center;
+   gap: 10px;
+}
+
+#lista-mis-valoraciones {
+   display: flex;
+   flex-direction: column;
+   gap: 15px;
+}
+
+.sin-actividades {
+   text-align: center;
+   color: rgba(255, 255, 255, 0.6);
+   font-style: italic;
+   padding: 40px 20px;
+}
+
+.tarjeta-valoracion {
+   background: rgba(255, 255, 255, 0.03);
+   border: 1px solid rgba(255, 255, 255, 0.1);
+   border-radius: 8px;
+   padding: 20px;
+   transition: all 0.3s ease;
+}
+
+.tarjeta-valoracion:hover {
+   background: rgba(255, 255, 255, 0.06);
+   transform: translateX(5px);
+}
+
+.valoracion-header-tarjeta {
+   display: flex;
+   justify-content: space-between;
+   align-items: flex-start;
+   margin-bottom: 10px;
+}
+
+.info-viaje h4 {
+   color: #ffffff;
+   font-size: 1.1rem;
+   margin: 0 0 8px 0;
+}
+
+.estrellas-tarjeta {
+   display: flex;
+   gap: 3px;
+   font-size: 1rem;
+}
+
+.estrellas-tarjeta .fa-star {
+   color: #f39c12;
+}
+
+.estrellas-tarjeta .fa-star-o {
+   color: rgba(255, 255, 255, 0.3);
+}
+
+.acciones-valoracion {
+   display: flex;
+   gap: 8px;
+}
+
+.btn-accion-pequeño {
+   background: rgba(255, 255, 255, 0.1);
+   border: 1px solid rgba(255, 255, 255, 0.2);
+   color: rgba(255, 255, 255, 0.9);
+   padding: 8px 12px;
+   border-radius: 5px;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   font-size: 0.9rem;
+}
+
+.btn-accion-pequeño:hover {
+   background: rgba(255, 255, 255, 0.2);
+   transform: scale(1.05);
+}
+
+.btn-eliminar-pequeño:hover {
+   background: rgba(231, 76, 60, 0.3);
+   border-color: #e74c3c;
+   color: #ff6b6b;
+}
+
+.fecha-valoracion {
+   color: rgba(255, 255, 255, 0.6);
+   font-size: 0.85rem;
+   margin: 5px 0 10px 0;
+   display: flex;
+   align-items: center;
+   gap: 5px;
+}
+
+.comentario-valoracion {
+   color: rgba(255, 255, 255, 0.8);
+   line-height: 1.6;
+   margin: 0;
+}
+
+/* Modal de Edición */
+.modal-overlay {
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background: rgba(0, 0, 0, 0.8);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   z-index: 9999;
+   padding: 20px;
+}
+
+.modal-overlay.oculto {
+   display: none;
+}
+
+.modal-contenido {
+   background: rgba(30, 30, 50, 0.98);
+   backdrop-filter: blur(10px);
+   border-radius: 12px;
+   padding: 30px;
+   max-width: 500px;
+   width: 100%;
+   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+   border: 1px solid rgba(255, 255, 255, 0.1);
+   animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+   from {
+      opacity: 0;
+      transform: translateY(-30px);
+   }
+   to {
+      opacity: 1;
+      transform: translateY(0);
+   }
+}
+
+.modal-header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-bottom: 25px;
+   padding-bottom: 15px;
+   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-header h3 {
+   color: #ffffff;
+   margin: 0;
+   font-size: 1.4rem;
+}
+
+.btn-cerrar-modal {
+   background: rgba(255, 255, 255, 0.1);
+   border: none;
+   color: rgba(255, 255, 255, 0.9);
+   font-size: 1.5rem;
+   width: 35px;
+   height: 35px;
+   border-radius: 50%;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.btn-cerrar-modal:hover {
+   background: rgba(255, 255, 255, 0.2);
+   transform: rotate(90deg);
+}
+
+.modal-acciones {
+   display: flex;
+   gap: 10px;
+   margin-top: 20px;
+}
+
+.modal-acciones .btn-auth {
+   flex: 1;
+}
+
+/* Responsive para Vista de Perfil */
+@media (max-width: 768px) {
+   .cabecera-perfil {
+      flex-direction: column;
+      text-align: center;
+   }
+   
+   .info-usuario-principal {
+      flex-direction: column;
+      text-align: center;
+   }
+   
+   .acciones-perfil {
+      width: 100%;
+      flex-direction: column;
+   }
+   
+   .btn-perfil {
+      width: 100%;
+      justify-content: center;
+   }
+   
+   .grupo-filtros {
+      flex-direction: column;
+   }
+   
+   .input-fecha {
+      width: 100%;
+   }
+   
+   .btn-filtrar,
+   .btn-limpiar {
+      width: 100%;
+      justify-content: center;
+   }
+   
+   .valoracion-header-tarjeta {
+      flex-direction: column;
+      gap: 10px;
+   }
+}
