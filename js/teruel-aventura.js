@@ -384,6 +384,23 @@ function guardarUsuariosRegistrados(usuarios) {
     localStorage.setItem('usuariosRegistrados', JSON.stringify(usuarios));
 }
 
+// Sincronizar acciones de autenticación con el backend PHP
+function sincronizarConServidor(accion, payload = {}) {
+    return fetch('perfil.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({ ...payload, accion })
+    })
+        .then((response) => (response.ok ? response.json() : Promise.reject(new Error('Error de red'))))
+        .catch((error) => {
+            console.warn('No se pudo sincronizar con el servidor:', error.message);
+            return { ok: false, mensaje: 'Sincronización no disponible' };
+        });
+}
+
 // Buscar usuario por email
 function buscarUsuarioPorEmail(email) {
     const usuarios = obtenerUsuariosRegistrados();
@@ -644,8 +661,9 @@ function cerrarModalEditar() {
 function cerrarSesion() {
     if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
         localStorage.removeItem('usuarioLogueado');
+        sincronizarConServidor('logout');
         alert('Sesión cerrada correctamente.');
-        window.location.href = 'perfil.html';
+        window.location.href = 'perfil.php';
     }
 }
 
@@ -664,7 +682,9 @@ function eliminarCuenta() {
     
     const usuario = obtenerUsuarioActual();
     if (!usuario) return;
-    
+
+    sincronizarConServidor('eliminar');
+
     // Eliminar todas las valoraciones del usuario
     const valoraciones = obtenerValoraciones();
     const valoracionesFiltradas = valoraciones.filter(v => v.email !== usuario.email);
@@ -679,7 +699,7 @@ function eliminarCuenta() {
     localStorage.removeItem('usuarioLogueado');
     
     alert('Tu cuenta ha sido eliminada exitosamente. Lamentamos verte partir.');
-    window.location.href = 'index.html';
+    window.location.href = 'index.php';
 }
 
 // ============================================
@@ -818,7 +838,7 @@ function enviarValoracion(viajeId) {
     const usuario = obtenerUsuarioActual();
     if (!usuario) {
         alert('Debes iniciar sesión para escribir una valoración.');
-        window.location.href = 'perfil.html';
+        window.location.href = 'perfil.php';
         return;
     }
     
@@ -1019,7 +1039,7 @@ function inicializarSmoothScroll() {
     });
 }
 
-// Función específica para scroll a servicios (index.html)
+// Función específica para scroll a servicios (index.php)
 function scrollToServices() {
     const servicesSection = document.getElementById('servicios');
     if (servicesSection) {
@@ -1035,7 +1055,7 @@ function scrollToServices() {
 // ============================================
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Verificar si estamos en perfil.html
+    // Verificar si estamos en perfil.php
     if (document.getElementById('vista-perfil-usuario')) {
         verificarSesionYMostrarVista();
         
@@ -1085,7 +1105,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
                 guardarValoraciones(valoraciones);
-                
+
+                sincronizarConServidor('editar', { nombre: nuevoNombre, email: nuevoEmail });
+
                 alert('Datos actualizados correctamente.');
                 cerrarModalEditar();
                 cargarDatosUsuario(usuario);
@@ -1141,13 +1163,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     email: email,
                     fechaRegistro: usuarioRegistro.fechaRegistro
                 };
-                
+
                 // Iniciar sesión automáticamente
                 localStorage.setItem('usuarioLogueado', JSON.stringify(usuario));
-                
+
+                sincronizarConServidor('registro', { nombre, email, password });
+
                 // Mostrar mensaje de éxito y redirigir
                 alert('¡Cuenta creada exitosamente! Bienvenido, ' + nombre + '.');
-                window.location.href = 'perfil.html';
+                window.location.href = 'perfil.php';
             });
         }
         
@@ -1189,15 +1213,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Guardar en localStorage (sesión iniciada)
                 localStorage.setItem('usuarioLogueado', JSON.stringify(usuario));
-                
+
+                sincronizarConServidor('login', { email, password });
+
                 // Mostrar mensaje de éxito y redirigir
                 alert('¡Sesión iniciada correctamente! Bienvenido de nuevo, ' + usuarioRegistrado.nombre + '.');
-                window.location.href = 'perfil.html';
+                window.location.href = 'perfil.php';
             });
         }
     }
     
-    // Verificar si estamos en organiza-viaje.html
+    // Verificar si estamos en organiza-viaje.php
     if (document.querySelector('.viaje-item')) {
         verificarEstadoLogin();
         inicializarSelectoresEstrellas();
