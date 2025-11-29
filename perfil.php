@@ -2,6 +2,17 @@
 session_start();
 require_once __DIR__ . '/conexion.php';
 
+/*
+CREATE TABLE IF NOT EXISTS usuarios (
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    fecha_registro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    activo TINYINT(1) NOT NULL DEFAULT 1
+);
+*/
+
 /**
  * Devuelve una respuesta JSON y detiene la ejecución.
  */
@@ -58,7 +69,13 @@ try {
                 break;
             }
 
-            $consulta = $pdo->prepare('SELECT id FROM usuarios WHERE email = :email');
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $mensaje = 'El correo electrónico no tiene un formato válido.';
+                $tipoMensaje = 'warning';
+                break;
+            }
+
+            $consulta = $pdo->prepare('SELECT id_usuario FROM usuarios WHERE email = :email');
             $consulta->execute(['email' => $email]);
             if ($consulta->fetch()) {
                 $mensaje = 'Ya existe una cuenta con este correo electrónico.';
@@ -67,11 +84,11 @@ try {
             }
 
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-            $insert = $pdo->prepare('INSERT INTO usuarios (nombre, email, password_hash, fecha_registro) VALUES (:nombre, :email, :password_hash, NOW())');
+            $insert = $pdo->prepare('INSERT INTO usuarios (nombre, email, password, fecha_registro, activo) VALUES (:nombre, :email, :password, NOW(), 1)');
             $insert->execute([
                 'nombre' => $nombre,
                 'email' => $email,
-                'password_hash' => $passwordHash,
+                'password' => $passwordHash,
             ]);
 
             $_SESSION['usuario'] = [
@@ -88,17 +105,29 @@ try {
             $email = trim($datos['email'] ?? '');
             $password = $datos['password'] ?? '';
 
-            $consulta = $pdo->prepare('SELECT id, nombre, email, password_hash, fecha_registro FROM usuarios WHERE email = :email');
+            if ($email === '' || $password === '') {
+                $mensaje = 'Debes introducir usuario y contraseña para iniciar sesión.';
+                $tipoMensaje = 'warning';
+                break;
+            }
+
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $mensaje = 'Introduce un correo electrónico válido.';
+                $tipoMensaje = 'warning';
+                break;
+            }
+
+            $consulta = $pdo->prepare('SELECT id_usuario, nombre, email, password, fecha_registro FROM usuarios WHERE email = :email AND activo = 1');
             $consulta->execute(['email' => $email]);
             $usuario = $consulta->fetch();
 
-            if (!$usuario || !password_verify($password, $usuario['password_hash'])) {
+            if (!$usuario || !password_verify($password, $usuario['password'])) {
                 $mensaje = 'Credenciales incorrectas. Por favor, verifica tu usuario y contraseña.';
                 break;
             }
 
             $_SESSION['usuario'] = [
-                'id' => (int)$usuario['id'],
+                'id' => (int)$usuario['id_usuario'],
                 'nombre' => $usuario['nombre'],
                 'email' => $usuario['email'],
                 'fecha_registro' => $usuario['fecha_registro'] ?? null,
@@ -123,7 +152,7 @@ try {
                 break;
             }
 
-            $consulta = $pdo->prepare('SELECT id FROM usuarios WHERE email = :email AND id != :id');
+            $consulta = $pdo->prepare('SELECT id_usuario FROM usuarios WHERE email = :email AND id_usuario != :id');
             $consulta->execute(['email' => $nuevoEmail, 'id' => $usuarioSesion['id']]);
             if ($consulta->fetch()) {
                 $mensaje = 'El correo electrónico ya está en uso por otra cuenta.';
@@ -131,7 +160,7 @@ try {
                 break;
             }
 
-            $update = $pdo->prepare('UPDATE usuarios SET nombre = :nombre, email = :email WHERE id = :id');
+            $update = $pdo->prepare('UPDATE usuarios SET nombre = :nombre, email = :email WHERE id_usuario = :id');
             $update->execute([
                 'nombre' => $nuevoNombre,
                 'email' => $nuevoEmail,
@@ -152,7 +181,7 @@ try {
                 break;
             }
 
-            $delete = $pdo->prepare('DELETE FROM usuarios WHERE id = :id');
+            $delete = $pdo->prepare('DELETE FROM usuarios WHERE id_usuario = :id');
             $delete->execute(['id' => $usuarioSesion['id']]);
             session_destroy();
             $usuarioSesion = null;
